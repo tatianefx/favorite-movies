@@ -1,23 +1,34 @@
-package br.com.tatianefx.movies
+package br.com.tatianefx.movies.favorites
 
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
+import br.com.tatianefx.movies.R
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.favorites_activity.*
 
-import kotlinx.android.synthetic.main.activity_main.*
+/**
+ * Created by Tatiane Souza on 12/03/2019.
+ */
 
-class MainActivity : AppCompatActivity() {
+class FavoritesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.favorites_activity)
+
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
+        }
+
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, FavoritesFragment.newInstance())
+                .commitNow()
         }
     }
 
@@ -36,4 +47,5 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
+
 }
