@@ -9,7 +9,7 @@ import br.com.tatianefx.movies.data.source.MoviesRepository
 import br.com.tatianefx.movies.ui.favorites.FavoritesViewModel
 
 /**
- * Created by tatiane.silva on 13/03/2019.
+ * Created by Tatiane Souza on 13/03/2019.
  */
 
 class ViewModelFactory private constructor(

@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import java.util.*
 
 
@@ -14,9 +15,18 @@ import java.util.*
 @Entity(tableName = "movies")
 data class Movie @JvmOverloads constructor(
 
-    @ColumnInfo(name = "title") var title: String = "",
-    @ColumnInfo(name = "plot") var plot: String = "",
-    @ColumnInfo(name = "poster") var poster: String = "",
+    @SerializedName("Title")
+    @ColumnInfo(name = "title")
+    var title: String = "",
+
+    @SerializedName("Plot")
+    @ColumnInfo(name = "plot")
+    var plot: String = "",
+
+    @SerializedName("Poster")
+    @ColumnInfo(name = "poster")
+    var poster: String = "",
+
     @PrimaryKey @ColumnInfo(name = "id") var id: String = UUID.randomUUID().toString()
 
 ) {

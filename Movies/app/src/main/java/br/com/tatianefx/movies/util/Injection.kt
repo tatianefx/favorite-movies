@@ -7,7 +7,7 @@ import br.com.tatianefx.movies.data.source.local.MoviesDatabase
 import br.com.tatianefx.movies.data.source.local.MoviesLocalDataSource
 
 /**
- * Created by tatiane.silva on 13/03/2019.
+ * Created by Tatiane Souza on 13/03/2019.
  */
 
 /**

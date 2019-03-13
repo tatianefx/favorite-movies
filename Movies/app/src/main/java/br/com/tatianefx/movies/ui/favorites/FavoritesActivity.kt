@@ -7,11 +7,15 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
+import br.com.tatianefx.movies.data.Movie
+import br.com.tatianefx.movies.network.ApiClient
+import br.com.tatianefx.movies.network.OnResponseListener
 import br.com.tatianefx.movies.ui.addmovie.AddMovieActivity
 import br.com.tatianefx.movies.util.Event
 import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
 import kotlinx.android.synthetic.main.favorites_activity.*
+import okhttp3.ResponseBody
 
 /**
  * Created by Tatiane Souza on 12/03/2019.
@@ -61,7 +65,25 @@ class FavoritesActivity : AppCompatActivity(), FavoritesNavigator {
     }
 
     override fun addNewMovie() {
-        startActivity(AddMovieActivity.newIntent(this))
+        ApiClient.getMovieByTitle("saw", object : OnResponseListener<Movie> {
+            override fun onSuccess(response: Movie) {
+
+            }
+
+            override fun onError(body: ResponseBody, code: Int) {
+
+            }
+
+            override fun onFailure(str: String) {
+
+            }
+
+            override fun noInternet() {
+
+            }
+
+        })
+//        startActivity(AddMovieActivity.newIntent(this))
     }
 
     internal fun obtainViewModel(): FavoritesViewModel = obtainViewModel(FavoritesViewModel::class.java)
