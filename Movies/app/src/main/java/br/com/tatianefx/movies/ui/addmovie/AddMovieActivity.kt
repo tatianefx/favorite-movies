@@ -63,7 +63,7 @@ class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, SearchView.OnQu
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         query?.let { viewModel.searchMovie(it) }
-        return true
+        return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
