@@ -8,7 +8,7 @@ import br.com.tatianefx.movies.data.source.local.MoviesLocalDataSource
  * Created by Tatiane Souza on 12/03/2019.
  */
 class MoviesRepository(
-    val moviesLocalDataSource: MoviesDataSource
+    private val moviesLocalDataSource: MoviesDataSource
 ) : MoviesDataSource {
 
     /**
@@ -39,23 +39,19 @@ class MoviesRepository(
 
 //        EspressoIdlingResource.increment() // Set app as busy.
 
-        if (cacheIsDirty) {
-            //TODO
-            // If the cache is dirty we need to fetch new data from the network.
-        } else {
-            // Query the local storage if available. If not, query the network.
-            moviesLocalDataSource.getMovies(object : MoviesDataSource.LoadMoviesCallback {
-                override fun onMoviesLoaded(movies: List<Movie>) {
-                    refreshCache(movies)
-//                    EspressoIdlingResource.decrement() // Set app as idle.
-                    callback.onMoviesLoaded(ArrayList(cachedMovies.values))
-                }
 
-                override fun onDataNotAvailable() {
+        // Query the local storage if available. If not, query the network.
+        moviesLocalDataSource.getMovies(object : MoviesDataSource.LoadMoviesCallback {
+            override fun onMoviesLoaded(movies: List<Movie>) {
+                refreshCache(movies)
+//                    EspressoIdlingResource.decrement() // Set app as idle.
+                callback.onMoviesLoaded(ArrayList(cachedMovies.values))
+            }
+
+            override fun onDataNotAvailable() {
 //                    getMoviesFromRemoteDataSource(callback)
-                }
-            })
-        }
+            }
+        })
     }
 
     override fun saveMovie(movie: Movie) {
@@ -125,12 +121,10 @@ class MoviesRepository(
     private fun getMovieWithId(id: String) = cachedMovies[id]
 
     private inline fun cacheAndPerform(movie: Movie, perform: (Movie) -> Unit) {
-        val cachedMovie = Movie(movie.title, movie.plot, movie.poster, movie.id)
+        val cachedMovie = Movie(movie.title, movie.year, movie.plot, movie.poster, movie.id)
         cachedMovies[cachedMovie.id] = cachedMovie
         perform(cachedMovie)
     }
-
-    //TODO Movies From Remote DataSource
 
     companion object {
 
