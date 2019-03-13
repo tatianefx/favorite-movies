@@ -6,17 +6,20 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
+import br.com.tatianefx.movies.util.Event
+import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
-
 
 /**
  * Created by Tatiane Souza on 13/03/2019.
  */
 
-class AddMovieActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
+class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, SearchView.OnQueryTextListener {
+
+    private lateinit var viewModel: AddMovieViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +28,15 @@ class AddMovieActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         setupViewFragment()
+
+        viewModel = obtainViewModel().apply {
+            // Subscribe to "search movie" event
+            searchMovieEvent.observe(this@AddMovieActivity, Observer<Event<Unit>> { event ->
+                event.getContentIfNotHandled()?.let {
+                    this@AddMovieActivity.onSearchFinished()
+                }
+            })
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -50,12 +62,16 @@ class AddMovieActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        Toast.makeText(this, query ?: "", Toast.LENGTH_SHORT).show()
+        query?.let { viewModel.searchMovie(it) }
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
         return !newText.isNullOrEmpty()
+    }
+
+    override fun onSearchFinished() {
+        //TODO
     }
 
     //endregion
@@ -64,6 +80,8 @@ class AddMovieActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         supportFragmentManager.findFragmentById(R.id.container)
             ?: replaceFragmentInActivity(AddMovieFragment.newInstance(), R.id.container)
     }
+
+    internal fun obtainViewModel(): AddMovieViewModel = obtainViewModel(AddMovieViewModel::class.java)
 
     companion object {
 

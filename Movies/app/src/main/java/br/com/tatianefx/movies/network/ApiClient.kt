@@ -17,16 +17,16 @@ class ApiClient {
             NetworkClient.getApi()
         }
 
-        fun getMovieByTitle(title: String, listener: OnResponseListener<Movie>) {
-            service.getMovieByTitle(title).enqueue(object : Callback<Movie> {
+        fun getMovieByTitle(title: String, listener: OnResponseListener<List<Movie>>) {
+            service.getMovieByTitle(title).enqueue(object : Callback<List<Movie>> {
 
-                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
                     response.body()?.let {
                         listener.onSuccess(it)
                     }
                 }
 
-                override fun onFailure(call: Call<Movie>, t: Throwable) {
+                override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
                     listener.onFailure(t.message ?: "Request Failure")
                 }
             })

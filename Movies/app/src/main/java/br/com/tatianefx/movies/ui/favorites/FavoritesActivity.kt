@@ -2,8 +2,6 @@ package br.com.tatianefx.movies.ui.favorites
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
 import br.com.tatianefx.movies.ui.addmovie.AddMovieActivity

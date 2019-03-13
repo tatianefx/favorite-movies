@@ -6,6 +6,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.tatianefx.movies.data.source.MoviesRepository
+import br.com.tatianefx.movies.ui.addmovie.AddMovieViewModel
 import br.com.tatianefx.movies.ui.favorites.FavoritesViewModel
 
 /**
@@ -21,6 +22,8 @@ class ViewModelFactory private constructor(
             when {
                 isAssignableFrom(FavoritesViewModel::class.java) ->
                     FavoritesViewModel(moviesRepository)
+                isAssignableFrom(AddMovieViewModel::class.java) ->
+                    AddMovieViewModel()
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }
