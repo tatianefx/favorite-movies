@@ -1,9 +1,8 @@
 package br.com.tatianefx.movies.common
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
 
 /**
@@ -11,7 +10,7 @@ import androidx.lifecycle.MutableLiveData
  */
 
 
-class MoviesViewModel(application: Application): AndroidViewModel(application) {
+class MoviesViewModel: ViewModel() {
 
     private val _poster = MutableLiveData<String>()
     val image: LiveData<String>

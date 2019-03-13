@@ -1,12 +1,13 @@
 package br.com.tatianefx.movies.favorites
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.tatianefx.movies.R
+import br.com.tatianefx.movies.databinding.FavoritesFragmentBinding
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
  * Created by Tatiane Souza on 12/03/2019.
@@ -14,23 +15,36 @@ import br.com.tatianefx.movies.R
 
 class FavoritesFragment : Fragment() {
 
+    private lateinit var viewDataBinding: FavoritesFragmentBinding
+
     companion object {
         fun newInstance() = FavoritesFragment()
     }
 
-    private lateinit var viewModel: FavoritesViewModel
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        viewDataBinding = FavoritesFragmentBinding.inflate(inflater, container, false).apply {
+            viewModel = (activity as FavoritesActivity).obtainViewModel()
+        }
+        setHasOptionsMenu(true)
+        return viewDataBinding.root
+    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.favorites_fragment, container, false)
+    override fun onResume() {
+        super.onResume()
+        viewDataBinding.viewModel?.start()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(FavoritesViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+        setupFab()
     }
 
+    private fun setupFab() {
+        activity?.findViewById<FloatingActionButton>(R.id.fab)?.let {
+            it.setOnClickListener {
+                viewDataBinding.viewModel?.addNewMovie()
+            }
+        }
+    }
 }

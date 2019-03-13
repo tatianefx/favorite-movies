@@ -4,15 +4,21 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
-import com.google.android.material.snackbar.Snackbar
+import br.com.tatianefx.movies.util.Event
+import br.com.tatianefx.movies.util.obtainViewModel
+import br.com.tatianefx.movies.util.replaceFragmentInActivity
 import kotlinx.android.synthetic.main.favorites_activity.*
 
 /**
  * Created by Tatiane Souza on 12/03/2019.
  */
 
-class FavoritesActivity : AppCompatActivity() {
+class FavoritesActivity : AppCompatActivity(), FavoritesNavigator {
+
+    private lateinit var viewModel: FavoritesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,15 +26,15 @@ class FavoritesActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        setupViewFragment()
 
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, FavoritesFragment.newInstance())
-                .commitNow()
+        viewModel = obtainViewModel().apply {
+            // Subscribe to "add movie" event
+            addNewMovieEvent.observe(this@FavoritesActivity, Observer<Event<Unit>> { event ->
+                event.getContentIfNotHandled()?.let {
+                    this@FavoritesActivity.addNewMovie()
+                }
+            })
         }
     }
 
@@ -48,4 +54,14 @@ class FavoritesActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupViewFragment() {
+        supportFragmentManager.findFragmentById(R.id.container)
+            ?: replaceFragmentInActivity(FavoritesFragment.newInstance(), R.id.container)
+    }
+
+    override fun addNewMovie() {
+        Toast.makeText(this, "Add new movie", Toast.LENGTH_SHORT).show()
+    }
+
+    internal fun obtainViewModel(): FavoritesViewModel = obtainViewModel(FavoritesViewModel::class.java)
 }

@@ -14,8 +14,8 @@ import br.com.tatianefx.movies.util.AppExecutors
  * Concrete implementation of a data source as a db.
  */
 class MoviesLocalDataSource private constructor(
-    val appExecutors: AppExecutors,
-    val moviesDao: MoviesDao
+    private val appExecutors: AppExecutors,
+    private val moviesDao: MoviesDao
 ) : MoviesDataSource {
 
     /**

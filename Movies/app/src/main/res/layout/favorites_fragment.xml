@@ -6,7 +6,7 @@
     <data>
 
         <variable
-                name="model"
+                name="viewModel"
                 type="br.com.tatianefx.movies.favorites.FavoritesViewModel" />
     </data>
 
@@ -20,15 +20,15 @@
                 android:id="@+id/favorites_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adapter="@{model.adapter}"
-                app:visibility="@{model.recyclerViewVisibility}" />
+                android:adapter="@{viewModel.adapter}"
+                app:visibility="@{viewModel.recyclerViewVisibility}" />
 
         <LinearLayout
                 android:id="@+id/favorites_empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:visibility="@{model.noFavoriteMoviesVisibility}">
+                android:visibility="@{viewModel.noFavoriteMoviesVisibility}">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

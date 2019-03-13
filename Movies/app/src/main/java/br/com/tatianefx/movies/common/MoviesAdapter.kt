@@ -37,7 +37,7 @@ class MoviesAdapter(private val viewModel: MoviesViewModel): PagedListAdapter<Mo
     class ViewHolder(private val viewDataBinding: ViewDataBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
 
         fun bind(viewModel: MoviesViewModel, position: Int) {
-            viewDataBinding.setVariable(BR.model, viewModel)
+            viewDataBinding.setVariable(BR.viewModel, viewModel)
             viewDataBinding.setVariable(BR.position, position)
             viewDataBinding.executePendingBindings()
         }
