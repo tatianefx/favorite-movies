@@ -1,6 +1,6 @@
 package br.com.tatianefx.movies.network
 
-import br.com.tatianefx.movies.data.Movie
+import br.com.tatianefx.movies.data.Search
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,5 +12,5 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("/")
-    fun getMovieByTitle(@Query("s") title: String): Call<List<Movie>>
+    fun getMovieByTitle(@Query("s") title: String): Call<Search>
 }

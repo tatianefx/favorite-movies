@@ -1,8 +1,9 @@
 package br.com.tatianefx.movies.network
 
 import br.com.tatianefx.movies.data.Movie
+import br.com.tatianefx.movies.data.Search
 import retrofit2.Call
-import retrofit2.Callback;
+import retrofit2.Callback
 import retrofit2.Response
 
 /**
@@ -18,15 +19,15 @@ class ApiClient {
         }
 
         fun getMovieByTitle(title: String, listener: OnResponseListener<List<Movie>>) {
-            service.getMovieByTitle(title).enqueue(object : Callback<List<Movie>> {
+            service.getMovieByTitle(title).enqueue(object : Callback<Search> {
 
-                override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
+                override fun onResponse(call: Call<Search>, response: Response<Search>) {
                     response.body()?.let {
-                        listener.onSuccess(it)
+                        listener.onSuccess(it.movies ?: arrayListOf())
                     }
                 }
 
-                override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
+                override fun onFailure(call: Call<Search>, t: Throwable) {
                     listener.onFailure(t.message ?: "Request Failure")
                 }
             })
