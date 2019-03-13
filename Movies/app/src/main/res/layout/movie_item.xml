@@ -11,7 +11,7 @@
 
         <variable
                 name="viewModel"
-                type="br.com.tatianefx.movies.common.MoviesViewModel" />
+                type="br.com.tatianefx.movies.ui.common.MoviesViewModel" />
     </data>
 
     <LinearLayout

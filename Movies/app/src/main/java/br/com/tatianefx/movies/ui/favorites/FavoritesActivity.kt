@@ -1,4 +1,4 @@
-package br.com.tatianefx.movies.favorites
+package br.com.tatianefx.movies.ui.favorites
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
+import br.com.tatianefx.movies.ui.addmovie.AddMovieActivity
 import br.com.tatianefx.movies.util.Event
 import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
@@ -60,7 +61,7 @@ class FavoritesActivity : AppCompatActivity(), FavoritesNavigator {
     }
 
     override fun addNewMovie() {
-        Toast.makeText(this, "Add new movie", Toast.LENGTH_SHORT).show()
+        startActivity(AddMovieActivity.newIntent(this))
     }
 
     internal fun obtainViewModel(): FavoritesViewModel = obtainViewModel(FavoritesViewModel::class.java)

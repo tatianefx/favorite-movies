@@ -1,4 +1,4 @@
-package br.com.tatianefx.movies.common
+package br.com.tatianefx.movies.ui.common
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

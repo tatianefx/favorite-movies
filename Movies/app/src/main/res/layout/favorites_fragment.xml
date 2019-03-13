@@ -7,14 +7,14 @@
 
         <variable
                 name="viewModel"
-                type="br.com.tatianefx.movies.favorites.FavoritesViewModel" />
+                type="br.com.tatianefx.movies.ui.favorites.FavoritesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/favorites"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".favorites.FavoritesFragment">
+            tools:context=".ui.favorites.FavoritesFragment">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/favorites_recyclerview"

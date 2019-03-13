@@ -3,7 +3,7 @@
           xmlns:tools="http://schemas.android.com/tools"
           package="br.com.tatianefx.movies">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
             android:allowBackup="true"
@@ -15,7 +15,7 @@
             tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-                android:name=".favorites.FavoritesActivity"
+                android:name="br.com.tatianefx.movies.ui.favorites.FavoritesActivity"
                 android:label="@string/app_name"
                 android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -24,6 +24,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name="br.com.tatianefx.movies.ui.addmovie.AddMovieActivity" />
 
     </application>
 

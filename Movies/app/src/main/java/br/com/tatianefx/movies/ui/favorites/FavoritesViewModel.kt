@@ -1,9 +1,9 @@
-package br.com.tatianefx.movies.favorites
+package br.com.tatianefx.movies.ui.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.tatianefx.movies.common.MoviesAdapter
+import br.com.tatianefx.movies.ui.common.MoviesAdapter
 import br.com.tatianefx.movies.data.Movie
 import br.com.tatianefx.movies.data.source.MoviesDataSource
 import br.com.tatianefx.movies.data.source.MoviesRepository

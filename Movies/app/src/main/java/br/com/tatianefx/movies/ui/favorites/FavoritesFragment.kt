@@ -1,4 +1,4 @@
-package br.com.tatianefx.movies.favorites
+package br.com.tatianefx.movies.ui.favorites
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

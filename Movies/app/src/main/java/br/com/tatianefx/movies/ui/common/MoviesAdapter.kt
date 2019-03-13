@@ -1,4 +1,4 @@
-package br.com.tatianefx.movies.common
+package br.com.tatianefx.movies.ui.common
 
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding

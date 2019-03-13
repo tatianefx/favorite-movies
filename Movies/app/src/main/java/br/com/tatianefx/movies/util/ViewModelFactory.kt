@@ -6,7 +6,7 @@ import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import br.com.tatianefx.movies.data.source.MoviesRepository
-import br.com.tatianefx.movies.favorites.FavoritesViewModel
+import br.com.tatianefx.movies.ui.favorites.FavoritesViewModel
 
 /**
  * Created by tatiane.silva on 13/03/2019.
