@@ -19,6 +19,10 @@ data class Movie @JvmOverloads constructor(
     @ColumnInfo(name = "title")
     var title: String = "",
 
+    @SerializedName("Year")
+    @ColumnInfo(name = "year")
+    var year: String = "",
+
     @SerializedName("Plot")
     @ColumnInfo(name = "plot")
     var plot: String = "",
@@ -40,6 +44,7 @@ data class Movie @JvmOverloads constructor(
             override fun areContentsTheSame(oldItem: Movie, newItem: Movie): Boolean
                     = oldItem.id == newItem.id
                     && oldItem.title == newItem.title
+                    && oldItem.year == newItem.year
                     && oldItem.plot == newItem.plot
                     && oldItem.poster == newItem.poster
         }
