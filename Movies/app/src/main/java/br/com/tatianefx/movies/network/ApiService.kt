@@ -12,5 +12,6 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("/")
-    fun getMovieByTitle(@Query("s") title: String): Call<Search>
+    fun getMovieByTitle(@Query("s") title: String,
+                        @Query("page") page: Int?): Call<Search>
 }

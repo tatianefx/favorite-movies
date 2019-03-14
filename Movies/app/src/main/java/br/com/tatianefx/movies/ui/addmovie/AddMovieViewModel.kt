@@ -11,6 +11,9 @@ import br.com.tatianefx.movies.network.OnResponseListener
 import br.com.tatianefx.movies.ui.common.MoviesAdapter
 import br.com.tatianefx.movies.util.Event
 import okhttp3.ResponseBody
+import androidx.paging.PagedList
+import androidx.paging.LivePagedListBuilder
+import br.com.tatianefx.movies.ui.common.MoviesDataSourceFactory
 
 /**
  * Created by Tatiane Souza on 13/03/2019.
@@ -21,6 +24,7 @@ class AddMovieViewModel : ViewModel(), OnResponseListener<List<Movie>> {
     //region Attributes
 
     private var items: List<Movie> = emptyList()
+    private var moviesPagedList: LiveData<PagedList<Movie>>
 
     private val _progressVisibility = MutableLiveData<Int>()
     val progressVisibility: LiveData<Int>
@@ -46,6 +50,17 @@ class AddMovieViewModel : ViewModel(), OnResponseListener<List<Movie>> {
 
     init {
         _adapter.value = MoviesAdapter(this, R.layout.add_movie_item)
+
+        val moviesFactory = MoviesDataSourceFactory()
+        val config: PagedList.Config = PagedList.Config.Builder()
+            .setInitialLoadSizeHint(20)
+            .setPageSize(20)
+            .build()
+
+        moviesPagedList = LivePagedListBuilder(moviesFactory, config)
+            .build()
+
+        _adapter.value?.submitList(moviesPagedList.value)
     }
 
     //region Public Methods
@@ -56,7 +71,7 @@ class AddMovieViewModel : ViewModel(), OnResponseListener<List<Movie>> {
 
     fun searchMovie(title: String) {
         _progressVisibility.value = View.VISIBLE
-        ApiClient.getMovieByTitle(title, this)
+        ApiClient.getMovieByTitle(title,1, this)
     }
 
     fun getMovieAt(position: Int): Movie? {
