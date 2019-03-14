@@ -9,6 +9,8 @@ import android.view.Menu
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
+import br.com.tatianefx.movies.ui.common.MovieItemNavigator
+import br.com.tatianefx.movies.ui.details.DetailsActivity
 import br.com.tatianefx.movies.util.Event
 import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
@@ -17,7 +19,7 @@ import br.com.tatianefx.movies.util.replaceFragmentInActivity
  * Created by Tatiane Souza on 13/03/2019.
  */
 
-class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, SearchView.OnQueryTextListener {
+class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, MovieItemNavigator, SearchView.OnQueryTextListener {
 
     private lateinit var viewModel: AddMovieViewModel
 
@@ -31,9 +33,9 @@ class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, SearchView.OnQu
 
         viewModel = obtainViewModel().apply {
             // Subscribe to "search movie" event
-            searchMovieEvent.observe(this@AddMovieActivity, Observer<Event<Unit>> { event ->
+            openMovieEvent.observe(this@AddMovieActivity, Observer<Event<String>> { event ->
                 event.getContentIfNotHandled()?.let {
-                    this@AddMovieActivity.onSearchFinished()
+                    this@AddMovieActivity.openMovieDetails(it)
                 }
             })
         }
@@ -70,11 +72,11 @@ class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, SearchView.OnQu
         return !newText.isNullOrEmpty()
     }
 
-    override fun onSearchFinished() {
-        //TODO
-    }
-
     //endregion
+
+    override fun openMovieDetails(imdbId: String) {
+        startActivity(DetailsActivity.newIntent(this, imdbId))
+    }
 
     private fun setupViewFragment() {
         supportFragmentManager.findFragmentById(R.id.container)

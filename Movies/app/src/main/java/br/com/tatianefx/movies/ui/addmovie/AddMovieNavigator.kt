@@ -6,5 +6,4 @@ package br.com.tatianefx.movies.ui.addmovie
 
 internal interface AddMovieNavigator {
 
-    fun onSearchFinished()
 }

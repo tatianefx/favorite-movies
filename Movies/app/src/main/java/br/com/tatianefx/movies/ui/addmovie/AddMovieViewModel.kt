@@ -44,10 +44,6 @@ class AddMovieViewModel : MoviesViewModel(), OnResponseListener<List<Movie>> {
     val noMoviesVisibility: LiveData<Int>
         get() = _noMoviesVisibility
 
-    private val _addNewMovieEvent = MutableLiveData<Event<Unit>>()
-    val addNewMovieEvent: LiveData<Event<Unit>>
-        get() = _addNewMovieEvent
-
     //endregion
 
     init {

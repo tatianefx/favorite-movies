@@ -46,6 +46,11 @@ class MoviesAdapter<T : MoviesViewModel>(
             viewDataBinding.setVariable(BR.viewModel, viewModel)
             viewDataBinding.setVariable(BR.position, position)
             viewDataBinding.executePendingBindings()
+
+            // On Click
+            itemView.setOnClickListener {
+                viewModel.items.getOrNull(position)?.let { viewModel.openMovie(it.imdbId) }
+            }
         }
     }
 }
