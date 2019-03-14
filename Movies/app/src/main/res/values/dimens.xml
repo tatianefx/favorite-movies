@@ -11,5 +11,6 @@
     <!--Fonts-->
     <dimen name="font_normal">14sp</dimen>
     <dimen name="font_medium">16sp</dimen>
+    <dimen name="image_large">250dp</dimen>
 
 </resources>

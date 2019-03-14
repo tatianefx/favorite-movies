@@ -1,6 +1,7 @@
 package br.com.tatianefx.movies.network
 
 import br.com.tatianefx.movies.data.Movie
+import br.com.tatianefx.movies.data.MovieDetail
 import br.com.tatianefx.movies.data.Search
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,16 +34,16 @@ class ApiClient {
             })
         }
 
-        fun getMovieDetails(imdbId: String, listener: OnResponseListener<Movie>) {
-            service.getMovieDetails(imdbId).enqueue(object : Callback<Movie> {
+        fun getMovieDetails(imdbId: String, listener: OnResponseListener<MovieDetail>) {
+            service.getMovieDetails(imdbId).enqueue(object : Callback<MovieDetail> {
 
-                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                override fun onResponse(call: Call<MovieDetail>, response: Response<MovieDetail>) {
                     response.body()?.let {
                         listener.onSuccess(it)
                     }
                 }
 
-                override fun onFailure(call: Call<Movie>, t: Throwable) {
+                override fun onFailure(call: Call<MovieDetail>, t: Throwable) {
                     listener.onFailure(t.message ?: "Request Failure")
                 }
             })

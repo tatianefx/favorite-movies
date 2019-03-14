@@ -12,9 +12,11 @@ object ViewBindings {
 
     @BindingAdapter("app:imageUrl")
     @JvmStatic
-    fun bindImageViewUrl(imageView: ImageView, imageUrl: String) {
-        Glide.with(imageView)
-            .load(imageUrl)
-            .into(imageView)
+    fun bindImageViewUrl(imageView: ImageView, imageUrl: String?) {
+        if (!imageUrl.isNullOrEmpty()) {
+            Glide.with(imageView)
+                .load(imageUrl)
+                .into(imageView)
+        }
     }
 }

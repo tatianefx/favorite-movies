@@ -36,7 +36,6 @@ data class Movie @JvmOverloads constructor(
     var poster: String = "",
 
     @PrimaryKey @ColumnInfo(name = "id") var id: String = UUID.randomUUID().toString()
-
 ) {
     companion object {
 

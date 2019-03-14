@@ -1,9 +1,23 @@
 <resources>
     <string name="app_name">Movies</string>
-    <string name="action_search">Search</string>
+
+    <!--Favorite Movies-->
     <string name="favorite_movies_empty_view">You don\'t have favorite movies</string>
+
+    <!--Add Movie-->
     <string name="add_movies_empty_view">Sorry. We didn\'t find any movies with this name</string>
     <string name="add_movies_message">Search for movies by title</string>
     <string name="add_movies_title">Title:</string>
     <string name="add_movies_year">Year:</string>
+
+    <!--Details-->
+    <string name="details_title">Title:</string>
+    <string name="details_year">Year:</string>
+    <string name="details_runtime">Runtime:</string>
+    <string name="details_genre">Genre:</string>
+    <string name="details_director">Director:</string>
+    <string name="details_writer">Writer:</string>
+    <string name="details_actors">Actors:</string>
+    <string name="details_plot">Plot:</string>
+
 </resources>

@@ -1,12 +1,11 @@
 package br.com.tatianefx.movies.ui.details
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import br.com.tatianefx.movies.R
+import br.com.tatianefx.movies.databinding.DetailsFragmentBinding
 
 /**
  * Created by Tatiane Souza on 14/03/2019.
@@ -14,23 +13,33 @@ import br.com.tatianefx.movies.R
 
 class DetailsFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = DetailsFragment()
+    private lateinit var viewDataBinding: DetailsFragmentBinding
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        viewDataBinding = DetailsFragmentBinding.inflate(inflater, container, false).apply {
+            viewModel = (activity as DetailsActivity).obtainViewModel()
+        }
+        return viewDataBinding.root
     }
 
-    private lateinit var viewModel: DetailsViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.details_fragment, container, false)
+    override fun onResume() {
+        super.onResume()
+        viewDataBinding.viewModel?.start(arguments?.getString(ARGUMENT_IMDB_ID))
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(DetailsViewModel::class.java)
-        // TODO: Use the ViewModel
+        viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
     }
 
+    companion object {
+
+        private const val ARGUMENT_IMDB_ID = "IMDB_ID"
+
+        fun newInstance(imadId: String?) = DetailsFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARGUMENT_IMDB_ID, imadId)
+            }
+        }
+    }
 }

@@ -20,8 +20,6 @@ class AddMovieFragment : Fragment() {
         fun newInstance() = AddMovieFragment()
     }
 
-    private lateinit var viewModel: AddMovieViewModel
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         viewDataBinding = AddMovieFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = (activity as AddMovieActivity).obtainViewModel()
