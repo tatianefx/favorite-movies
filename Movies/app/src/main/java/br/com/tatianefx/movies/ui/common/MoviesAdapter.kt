@@ -15,27 +15,32 @@ import br.com.tatianefx.movies.BR
  * Created by Tatiane Souza on 12/03/2019.
  */
 
-class MoviesAdapter<T : ViewModel>(
+class MoviesAdapter<T : MoviesViewModel>(
     private val viewModel: T,
     private val itemViewType: Int):
-    PagedListAdapter<Movie, MoviesAdapter.ViewHolder<T>>(Movie.DiffCallback) {
+    RecyclerView.Adapter<MoviesAdapter.ViewHolder<T>>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesAdapter.ViewHolder<T> {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder<T> {
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ViewDataBinding>(layoutInflater, viewType, parent, false)
         return ViewHolder(binding)
     }
 
+    override fun getItemCount(): Int {
+        return viewModel.items.size
+    }
+
     override fun onBindViewHolder(holder: ViewHolder<T>, position: Int) {
-        getItem(position)
-        holder.bind(viewModel, position)
+        viewModel.items.getOrNull(position)?.apply {
+            holder.bind(viewModel, position)
+        }
     }
 
     override fun getItemViewType(position: Int): Int {
         return itemViewType
     }
 
-    class ViewHolder<T : ViewModel>(private val viewDataBinding: ViewDataBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
+    class ViewHolder<T : MoviesViewModel>(private val viewDataBinding: ViewDataBinding): RecyclerView.ViewHolder(viewDataBinding.root) {
 
         fun bind(viewModel: T, position: Int) {
             viewDataBinding.setVariable(BR.viewModel, viewModel)

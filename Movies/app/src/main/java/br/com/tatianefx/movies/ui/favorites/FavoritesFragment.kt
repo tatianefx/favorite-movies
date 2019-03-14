@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.tatianefx.movies.R
 import br.com.tatianefx.movies.databinding.FavoritesFragmentBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -38,6 +39,7 @@ class FavoritesFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
         setupFab()
+        setupRecyclerAdapter()
     }
 
     private fun setupFab() {
@@ -46,5 +48,9 @@ class FavoritesFragment : Fragment() {
                 viewDataBinding.viewModel?.addNewMovie()
             }
         }
+    }
+
+    private fun setupRecyclerAdapter() {
+        viewDataBinding.favoritesRecyclerview.layoutManager = LinearLayoutManager(context)
     }
 }

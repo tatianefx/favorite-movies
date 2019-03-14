@@ -2,12 +2,12 @@ package br.com.tatianefx.movies.ui.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import br.com.tatianefx.movies.R
 import br.com.tatianefx.movies.ui.common.MoviesAdapter
 import br.com.tatianefx.movies.data.Movie
 import br.com.tatianefx.movies.data.source.MoviesDataSource
 import br.com.tatianefx.movies.data.source.MoviesRepository
+import br.com.tatianefx.movies.ui.common.MoviesViewModel
 import br.com.tatianefx.movies.util.Event
 
 
@@ -15,11 +15,9 @@ import br.com.tatianefx.movies.util.Event
  * Created by Tatiane Souza on 12/03/2019.
  */
 
-class FavoritesViewModel(private val moviesRepository: MoviesRepository): ViewModel(), MoviesDataSource.LoadMoviesCallback {
+class FavoritesViewModel(private val moviesRepository: MoviesRepository): MoviesViewModel(), MoviesDataSource.LoadMoviesCallback {
 
     //region Attributes
-
-    private var items: List<Movie> = emptyList()
 
     private val _adapter = MutableLiveData<MoviesAdapter<FavoritesViewModel>>()
     val adapter: LiveData<MoviesAdapter<FavoritesViewModel>>

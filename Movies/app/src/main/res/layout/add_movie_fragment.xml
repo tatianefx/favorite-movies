@@ -14,26 +14,39 @@
             android:id="@+id/addmovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/margin_small"
             tools:context=".ui.addmovie.AddMovieActivity">
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/add_movies_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adapter="@{viewModel.adapter}" />
+                android:adapter="@{viewModel.adapter}"
+                android:visibility="@{viewModel.recyclerViewVisibility, default = gone}"/>
 
-        <LinearLayout
+        <RelativeLayout
                 android:id="@+id/add_movies_empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:background="@android:color/white"
-                android:visibility="@{viewModel.noMoviesVisibility}">
+                android:padding="@dimen/margin_small">
+
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/add_movies_empty_view"/>
-        </LinearLayout>
+                    android:textSize="@dimen/font_medium"
+                    android:textAlignment="center"
+                    android:text="@string/add_movies_message"
+                    android:visibility="@{viewModel.messageVisibility}"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/font_medium"
+                    android:textAlignment="center"
+                    android:text="@string/add_movies_empty_view"
+                    android:visibility="@{viewModel.noMoviesVisibility, default = gone}"/>
+
+        </RelativeLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

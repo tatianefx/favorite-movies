@@ -17,6 +17,7 @@
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
+            android:layout_margin="@dimen/margin_small"
             android:layout_height="wrap_content">
 
         <ImageView
@@ -24,24 +25,58 @@
                 android:layout_height="@dimen/image_small_height"
                 tools:srcCompat="@tools:sample/avatars"
                 android:id="@+id/add_movie_poster_image_view"
-                android:src="@drawable/ic_add_24"
+                app:imageUrl="@{viewModel.getMovieAt(position).poster}"
                 android:layout_weight="0.2"/>
 
         <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="@dimen/margin_small"
                 android:layout_weight="0.8">
-            <TextView
+
+            <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.getMovieAt(position).year}"
-                    android:id="@+id/add_movie_year_textview"/>
-            <TextView
-                    android:layout_width="match_parent"
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:textColor="@color/secondaryTextColor"
+                        android:text="@string/add_movies_title"/>
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/secondaryTextColor"
+                        android:text="@{viewModel.getMovieAt(position).title}"
+                        android:id="@+id/add_movie_title_textview"/>
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.getMovieAt(position).title}"
-                    android:id="@+id/add_movie_title_textview"/>
+                    android:orientation="horizontal">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:layout_marginEnd="@dimen/margin_small"
+                        android:textColor="@color/secondaryTextColor"
+                        android:text="@string/add_movies_year"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/secondaryTextColor"
+                        android:text="@{viewModel.getMovieAt(position).year}"
+                        android:id="@+id/add_movie_year_textview"/>
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
