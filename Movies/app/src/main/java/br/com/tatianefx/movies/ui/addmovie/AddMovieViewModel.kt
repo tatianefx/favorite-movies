@@ -63,7 +63,7 @@ class AddMovieViewModel : MoviesViewModel(), OnResponseListener<List<Movie>> {
 
     fun searchMovie(title: String) {
         _progressVisibility.value = View.VISIBLE
-        ApiClient.getMovieByTitle(title, this)
+        ApiClient.searchMovieByTitle(title, this)
     }
 
     fun getMovieAt(position: Int): Movie? {

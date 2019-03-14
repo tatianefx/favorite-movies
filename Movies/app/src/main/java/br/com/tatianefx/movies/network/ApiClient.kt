@@ -18,8 +18,8 @@ class ApiClient {
             NetworkClient.getApi()
         }
 
-        fun getMovieByTitle(title: String, listener: OnResponseListener<List<Movie>>) {
-            service.getMovieByTitle(title).enqueue(object : Callback<Search> {
+        fun searchMovieByTitle(title: String, listener: OnResponseListener<List<Movie>>) {
+            service.searchMovieByTitle(title).enqueue(object : Callback<Search> {
 
                 override fun onResponse(call: Call<Search>, response: Response<Search>) {
                     response.body()?.let {
@@ -28,6 +28,21 @@ class ApiClient {
                 }
 
                 override fun onFailure(call: Call<Search>, t: Throwable) {
+                    listener.onFailure(t.message ?: "Request Failure")
+                }
+            })
+        }
+
+        fun getMovieDetails(imdbId: String, listener: OnResponseListener<Movie>) {
+            service.getMovieDetails(imdbId).enqueue(object : Callback<Movie> {
+
+                override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
+                    response.body()?.let {
+                        listener.onSuccess(it)
+                    }
+                }
+
+                override fun onFailure(call: Call<Movie>, t: Throwable) {
                     listener.onFailure(t.message ?: "Request Failure")
                 }
             })

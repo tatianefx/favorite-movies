@@ -23,6 +23,10 @@ data class Movie @JvmOverloads constructor(
     @ColumnInfo(name = "year")
     var year: String = "",
 
+    @SerializedName("imdbID")
+    @ColumnInfo(name = "imdbID")
+    var imdbId: String = "",
+
     @SerializedName("Plot")
     @ColumnInfo(name = "plot")
     var plot: String = "",
@@ -45,6 +49,7 @@ data class Movie @JvmOverloads constructor(
                     = oldItem.id == newItem.id
                     && oldItem.title == newItem.title
                     && oldItem.year == newItem.year
+                    && oldItem.imdbId == newItem.imdbId
                     && oldItem.plot == newItem.plot
                     && oldItem.poster == newItem.poster
         }
