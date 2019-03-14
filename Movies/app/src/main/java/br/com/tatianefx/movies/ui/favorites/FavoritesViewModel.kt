@@ -3,11 +3,13 @@ package br.com.tatianefx.movies.ui.favorites
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.tatianefx.movies.R
 import br.com.tatianefx.movies.ui.common.MoviesAdapter
 import br.com.tatianefx.movies.data.Movie
 import br.com.tatianefx.movies.data.source.MoviesDataSource
 import br.com.tatianefx.movies.data.source.MoviesRepository
 import br.com.tatianefx.movies.util.Event
+
 
 /**
  * Created by Tatiane Souza on 12/03/2019.
@@ -17,17 +19,11 @@ class FavoritesViewModel(private val moviesRepository: MoviesRepository): ViewMo
 
     //region Attributes
 
-    private val _adapter = MutableLiveData<MoviesAdapter>()
-    val adapter: LiveData<MoviesAdapter>
+    private var items: List<Movie> = emptyList()
+
+    private val _adapter = MutableLiveData<MoviesAdapter<FavoritesViewModel>>()
+    val adapter: LiveData<MoviesAdapter<FavoritesViewModel>>
         get() = _adapter
-
-    private val _items = MutableLiveData<List<Movie>>().apply { value = emptyList() }
-    val items: LiveData<List<Movie>>
-        get() = _items
-
-    private val _recyclerViewVisibility = MutableLiveData<Int>()
-    val recyclerViewVisibility: LiveData<Int>
-        get() = _recyclerViewVisibility
 
     private val _noFavoriteMoviesVisibility = MutableLiveData<Int>()
     val noFavoriteMoviesVisibility: LiveData<Int>
@@ -38,6 +34,10 @@ class FavoritesViewModel(private val moviesRepository: MoviesRepository): ViewMo
         get() = _addNewMovieEvent
 
     //endregion
+
+    init {
+        _adapter.value = MoviesAdapter(this, R.layout.favorite_movies_item)
+    }
 
     //region Public Methods
 
@@ -50,6 +50,10 @@ class FavoritesViewModel(private val moviesRepository: MoviesRepository): ViewMo
      */
     fun addNewMovie() {
         _addNewMovieEvent.value = Event(Unit)
+    }
+
+    fun getMovieAt(position: Int): Movie? {
+        return items.getOrNull(position)
     }
 
     //endregion
@@ -65,7 +69,7 @@ class FavoritesViewModel(private val moviesRepository: MoviesRepository): ViewMo
     //region Override Methods
 
     override fun onMoviesLoaded(movies: List<Movie>) {
-        _items.value = movies
+        items = movies
     }
 
     override fun onDataNotAvailable() {

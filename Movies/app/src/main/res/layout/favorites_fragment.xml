@@ -20,14 +20,14 @@
                 android:id="@+id/favorites_recyclerview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adapter="@{viewModel.adapter}"
-                app:visibility="@{viewModel.recyclerViewVisibility}" />
+                android:adapter="@{viewModel.adapter}" />
 
         <LinearLayout
                 android:id="@+id/favorites_empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:background="@android:color/white"
                 android:visibility="@{viewModel.noFavoriteMoviesVisibility}">
             <TextView
                     android:layout_width="wrap_content"

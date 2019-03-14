@@ -11,7 +11,7 @@
 
         <variable
                 name="viewModel"
-                type="br.com.tatianefx.movies.ui.common.MoviesViewModel" />
+                type="br.com.tatianefx.movies.ui.addmovie.AddMovieViewModel" />
     </data>
 
     <LinearLayout
@@ -23,7 +23,7 @@
                 android:layout_width="@dimen/image_small_width"
                 android:layout_height="@dimen/image_small_height"
                 tools:srcCompat="@tools:sample/avatars"
-                android:id="@+id/poster_image_view"
+                android:id="@+id/add_movie_poster_image_view"
                 android:src="@drawable/ic_add_24"
                 android:layout_weight="0.2"/>
 
@@ -35,13 +35,13 @@
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.year}"
-                    android:id="@+id/year_textview"/>
+                    android:text="@{viewModel.getMovieAt(position).year}"
+                    android:id="@+id/add_movie_year_textview"/>
             <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@{viewModel.title}"
-                    android:id="@+id/title_textview"/>
+                    android:text="@{viewModel.getMovieAt(position).title}"
+                    android:id="@+id/add_movie_title_textview"/>
         </LinearLayout>
 
     </LinearLayout>

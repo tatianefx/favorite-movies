@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+                name="position"
+                type="java.lang.Integer" />
+
+        <variable
+                name="viewModel"
+                type="br.com.tatianefx.movies.ui.favorites.FavoritesViewModel" />
+    </data>
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:layout_width="@dimen/image_small_width"
+                android:layout_height="@dimen/image_small_height"
+                tools:srcCompat="@tools:sample/avatars"
+                android:id="@+id/favorite_movies_poster_image_view"
+                android:src="@drawable/ic_add_24"
+                android:layout_weight="0.2"/>
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8">
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.getMovieAt(position).year}"
+                    android:id="@+id/favorite_movies_year_textview"/>
+            <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.getMovieAt(position).title}"
+                    android:id="@+id/favorite_movies_title_textview"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>
