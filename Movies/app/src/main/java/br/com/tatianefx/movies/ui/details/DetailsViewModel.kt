@@ -1,5 +1,6 @@
 package br.com.tatianefx.movies.ui.details
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,11 +31,16 @@ class DetailsViewModel(private val moviesRepository: MoviesRepository) : ViewMod
     val onFailureEvent: LiveData<Event<String>>
         get() = _onFailureEvent
 
+    private val _progressVisibility = MutableLiveData<Int>()
+    val progressVisibility: LiveData<Int>
+        get() = _progressVisibility
+
     //endregion
 
     //region Public Methods
 
     fun start(imdbId: String?) {
+        _progressVisibility.value = View.VISIBLE
         imdbId?.let {
             movieImdbId = it
             moviesRepository.getMovie(it, this)
@@ -75,14 +81,17 @@ class DetailsViewModel(private val moviesRepository: MoviesRepository) : ViewMod
     override fun onMovieLoaded(movie: Movie) {
         _detail.value = movie
         _isFavorite.value = movie.isFavorite
+        _progressVisibility.value = View.GONE
     }
 
     override fun onDataNotAvailable() {
         _onFailureEvent.value = Event("Data not available")
+        _progressVisibility.value = View.GONE
     }
 
     override fun onFaliure(message: String) {
         _onFailureEvent.value = Event(message)
+        _progressVisibility.value = View.GONE
     }
 
     //endregion

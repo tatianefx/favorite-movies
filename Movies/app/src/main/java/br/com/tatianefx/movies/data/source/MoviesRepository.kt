@@ -33,7 +33,7 @@ class MoviesRepository(
     override fun getMovies(callback: MoviesDataSource.LoadMoviesCallback) {
         // Respond immediately with cache if available and not dirty
         if (cachedMovies.isNotEmpty() && !cacheIsDirty) {
-            callback.onMoviesLoaded(ArrayList(cachedMovies.values))
+            callback.onMoviesLoaded(ArrayList(cachedMovies.values.filter { it.isFavorite }))
             return
         }
 
