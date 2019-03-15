@@ -1,5 +1,6 @@
 package br.com.tatianefx.movies.ui.favorites
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.tatianefx.movies.R
@@ -30,6 +31,10 @@ class FavoritesViewModel(private val moviesRepository: MoviesRepository): Movies
     private val _addNewMovieEvent = MutableLiveData<Event<Unit>>()
     val addNewMovieEvent: LiveData<Event<Unit>>
         get() = _addNewMovieEvent
+
+    private val _onFailureEvent = MutableLiveData<Event<String>>()
+    val onFailureEvent: LiveData<Event<String>>
+        get() = _onFailureEvent
 
     //endregion
 
@@ -68,10 +73,16 @@ class FavoritesViewModel(private val moviesRepository: MoviesRepository): Movies
 
     override fun onMoviesLoaded(movies: List<Movie>) {
         items = movies
+        _adapter.value?.notifyDataSetChanged()
+        _noFavoriteMoviesVisibility.value = View.GONE
     }
 
     override fun onDataNotAvailable() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        _onFailureEvent.value = Event("Data not available")
+    }
+
+    override fun onFaliure(message: String) {
+        _onFailureEvent.value = Event(message)
     }
 
     //endregion

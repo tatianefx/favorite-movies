@@ -5,6 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.tatianefx.movies.R
 import br.com.tatianefx.movies.data.Movie
+import br.com.tatianefx.movies.data.source.MoviesDataSource
+import br.com.tatianefx.movies.data.source.MoviesRepository
 import br.com.tatianefx.movies.network.ApiClient
 import br.com.tatianefx.movies.network.OnResponseListener
 import br.com.tatianefx.movies.ui.common.MoviesAdapter
@@ -16,7 +18,7 @@ import okhttp3.ResponseBody
  * Created by Tatiane Souza on 13/03/2019.
  */
 
-class AddMovieViewModel : MoviesViewModel(), OnResponseListener<List<Movie>> {
+class AddMovieViewModel(private val moviesRepository: MoviesRepository) : MoviesViewModel(), MoviesDataSource.LoadMoviesCallback {
 
     //region Attributes
 
@@ -44,6 +46,10 @@ class AddMovieViewModel : MoviesViewModel(), OnResponseListener<List<Movie>> {
     val noMoviesVisibility: LiveData<Int>
         get() = _noMoviesVisibility
 
+    private val _onFailureEvent = MutableLiveData<Event<String>>()
+    val onFailureEvent: LiveData<Event<String>>
+        get() = _onFailureEvent
+
     //endregion
 
     init {
@@ -59,7 +65,7 @@ class AddMovieViewModel : MoviesViewModel(), OnResponseListener<List<Movie>> {
 
     fun searchMovie(title: String) {
         _progressVisibility.value = View.VISIBLE
-        ApiClient.searchMovieByTitle(title, this)
+        moviesRepository.searchMovies(title, this)
     }
 
     fun getMovieAt(position: Int): Movie? {
@@ -85,24 +91,22 @@ class AddMovieViewModel : MoviesViewModel(), OnResponseListener<List<Movie>> {
 
     //region Callback Methods
 
-    override fun onSuccess(response: List<Movie>) {
-        items = response
+    override fun onMoviesLoaded(movies: List<Movie>) {
+        items = movies
         _adapter.value?.notifyDataSetChanged()
         _progressVisibility.value = View.GONE
         updateVisibility()
         _searchMovieEvent.value = Event(Unit)
     }
 
-    override fun onError(body: ResponseBody, code: Int) {
+    override fun onDataNotAvailable() {
         _progressVisibility.value = View.GONE
+        _onFailureEvent.value = Event("Data not available")
     }
 
-    override fun onFailure(str: String) {
+    override fun onFaliure(message: String) {
         _progressVisibility.value = View.GONE
-    }
-
-    override fun noInternet() {
-        _progressVisibility.value = View.GONE
+        _onFailureEvent.value = Event(message)
     }
 
     //endregion

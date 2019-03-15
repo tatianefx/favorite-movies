@@ -14,6 +14,8 @@ interface MoviesDataSource {
         fun onMoviesLoaded(movies: List<Movie>)
 
         fun onDataNotAvailable()
+
+        fun onFaliure(message: String)
     }
 
     interface GetMovieCallback {
@@ -21,15 +23,19 @@ interface MoviesDataSource {
         fun onMovieLoaded(movie: Movie)
 
         fun onDataNotAvailable()
+
+        fun onFaliure(message: String)
     }
 
     fun getMovies(callback: LoadMoviesCallback)
 
-    fun getMovie(id: String, callback: GetMovieCallback)
+    fun searchMovies(title: String, callback: LoadMoviesCallback)
+
+    fun getMovie(imdbId: String, callback: GetMovieCallback)
 
     fun saveMovie(movie: Movie)
 
     fun deleteAllMovies()
 
-    fun deleteMovie(id: String)
+    fun deleteMovie(imdbId: String)
 }

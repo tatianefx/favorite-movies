@@ -24,9 +24,9 @@ class ViewModelFactory private constructor(
                 isAssignableFrom(FavoritesViewModel::class.java) ->
                     FavoritesViewModel(moviesRepository)
                 isAssignableFrom(AddMovieViewModel::class.java) ->
-                    AddMovieViewModel()
+                    AddMovieViewModel(moviesRepository)
                 isAssignableFrom(DetailsViewModel::class.java) ->
-                    DetailsViewModel()
+                    DetailsViewModel(moviesRepository)
                 else ->
                     throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
             }

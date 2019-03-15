@@ -1,14 +1,14 @@
 package br.com.tatianefx.movies.data.source
 
 import br.com.tatianefx.movies.data.Movie
-import br.com.tatianefx.movies.data.source.local.MoviesLocalDataSource
 
 
 /**
  * Created by Tatiane Souza on 12/03/2019.
  */
 class MoviesRepository(
-    private val moviesLocalDataSource: MoviesDataSource
+    private val moviesLocalDataSource: MoviesDataSource,
+    private val moviesRemoteDataSource: MoviesDataSource
 ) : MoviesDataSource {
 
     /**
@@ -37,19 +37,19 @@ class MoviesRepository(
             return
         }
 
-//        EspressoIdlingResource.increment() // Set app as busy.
-
-
         // Query the local storage if available. If not, query the network.
         moviesLocalDataSource.getMovies(object : MoviesDataSource.LoadMoviesCallback {
             override fun onMoviesLoaded(movies: List<Movie>) {
                 refreshCache(movies)
-//                    EspressoIdlingResource.decrement() // Set app as idle.
                 callback.onMoviesLoaded(ArrayList(cachedMovies.values))
             }
 
             override fun onDataNotAvailable() {
-//                    getMoviesFromRemoteDataSource(callback)
+                callback.onDataNotAvailable()
+            }
+
+            override fun onFaliure(message: String) {
+                callback.onFaliure(message)
             }
         })
     }
@@ -69,8 +69,8 @@ class MoviesRepository(
      * Note: [GetMovieCallback.onDataNotAvailable] is fired if both data sources fail to
      * get the data.
      */
-    override fun getMovie(id: String, callback: MoviesDataSource.GetMovieCallback) {
-        val movieInCache = getMovieWithId(id)
+    override fun getMovie(imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
+        val movieInCache = getMovieWithImdb(imdbId)
 
         // Respond immediately with cache if available
         if (movieInCache != null) {
@@ -78,22 +78,23 @@ class MoviesRepository(
             return
         }
 
-//        EspressoIdlingResource.increment() // Set app as busy.
-
         // Load from server/persisted if needed.
 
         // Is the movie in the local data source? If not, query the network.
-        moviesLocalDataSource.getMovie(id, object : MoviesDataSource.GetMovieCallback {
+        moviesLocalDataSource.getMovie(imdbId, object : MoviesDataSource.GetMovieCallback {
             override fun onMovieLoaded(movie: Movie) {
                 // Do in memory cache update to keep the app UI up to date
                 cacheAndPerform(movie) {
-//                    EspressoIdlingResource.decrement() // Set app as idle.
                     callback.onMovieLoaded(it)
                 }
             }
 
             override fun onDataNotAvailable() {
-                //TODO
+                requestByApi(imdbId, callback)
+            }
+
+            override fun onFaliure(message: String) {
+                callback.onFaliure(message)
             }
         })
     }
@@ -108,7 +109,46 @@ class MoviesRepository(
         cachedMovies.remove(id)
     }
 
-    // Cache
+    override fun searchMovies(title: String, callback: MoviesDataSource.LoadMoviesCallback) {
+        moviesRemoteDataSource.searchMovies(title, object : MoviesDataSource.LoadMoviesCallback {
+            override fun onMoviesLoaded(movies: List<Movie>) {
+                callback.onMoviesLoaded(movies)
+            }
+
+            override fun onDataNotAvailable() {
+                callback.onDataNotAvailable()
+            }
+
+            override fun onFaliure(message: String) {
+                callback.onFaliure(message)
+            }
+        })
+    }
+
+    //region Remote
+
+    private fun requestByApi(imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
+        moviesRemoteDataSource.getMovie(imdbId, object : MoviesDataSource.GetMovieCallback {
+            override fun onMovieLoaded(movie: Movie) {
+                // Do in memory cache update to keep the app UI up to date
+                cacheAndPerform(movie) {
+                    callback.onMovieLoaded(it)
+                }
+            }
+
+            override fun onDataNotAvailable() {
+                callback.onDataNotAvailable()
+            }
+
+            override fun onFaliure(message: String) {
+                callback.onFaliure(message)
+            }
+        })
+    }
+
+    //endregion
+
+    //region Cache
 
     private fun refreshCache(movies: List<Movie>) {
         cachedMovies.clear()
@@ -118,13 +158,26 @@ class MoviesRepository(
         cacheIsDirty = false
     }
 
-    private fun getMovieWithId(id: String) = cachedMovies[id]
+    private fun getMovieWithImdb(imdbId: String) = cachedMovies[imdbId]
 
     private inline fun cacheAndPerform(movie: Movie, perform: (Movie) -> Unit) {
-        val cachedMovie = Movie(movie.title, movie.year, movie.plot, movie.poster, movie.id)
-        cachedMovies[cachedMovie.id] = cachedMovie
+        val cachedMovie = Movie(
+            movie.title,
+            movie.year,
+            movie.plot,
+            movie.poster,
+            movie.runtime,
+            movie.genre,
+            movie.director,
+            movie.writer,
+            movie.actors,
+            movie.imdbId
+        )
+        cachedMovies[cachedMovie.imdbId] = cachedMovie
         perform(cachedMovie)
     }
+
+    //endregion
 
     companion object {
 
@@ -135,11 +188,13 @@ class MoviesRepository(
 
          * @param moviesLocalDataSource  the device storage data source
          * *
+         * @param moviesRemoteDataSource the backend data source
+         * *
          * @return the [MoviesRepository] instance
          */
-        @JvmStatic fun getInstance(moviesLocalDataSource: MoviesDataSource) =
+        @JvmStatic fun getInstance(moviesLocalDataSource: MoviesDataSource, moviesRemoteDataSource: MoviesDataSource) =
             INSTANCE ?: synchronized(MoviesRepository::class.java) {
-                INSTANCE ?: MoviesRepository(moviesLocalDataSource)
+                INSTANCE ?: MoviesRepository(moviesLocalDataSource, moviesRemoteDataSource)
                     .also { INSTANCE = it }
             }
 

@@ -40,9 +40,9 @@ class MoviesLocalDataSource private constructor(
      * Note: [GetMoviesCallback.onDataNotAvailable] is fired if the [Movie] isn't
      * found.
      */
-    override fun getMovie(id: String, callback: MoviesDataSource.GetMovieCallback) {
+    override fun getMovie(imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
         appExecutors.diskIO.execute {
-            val movie = moviesDao.getMovieById(id)
+            val movie = moviesDao.getMovieByImdbId(imdbId)
             appExecutors.mainThread.execute {
                 if (movie != null) {
                     callback.onMovieLoaded(movie)
@@ -61,8 +61,12 @@ class MoviesLocalDataSource private constructor(
         appExecutors.diskIO.execute { moviesDao.deleteMovies() }
     }
 
-    override fun deleteMovie(id: String) {
-        appExecutors.diskIO.execute { moviesDao.deleteMobieById(id) }
+    override fun deleteMovie(imdbId: String) {
+        appExecutors.diskIO.execute { moviesDao.deleteMobieByImdbID(imdbId) }
+    }
+
+    override fun searchMovies(title: String, callback: MoviesDataSource.LoadMoviesCallback) {
+        // do nothing
     }
 
     companion object {

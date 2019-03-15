@@ -3,6 +3,8 @@
 
     <!--Favorite Movies-->
     <string name="favorite_movies_empty_view">You don\'t have favorite movies</string>
+    <string name="favorite_movies_title">Title:</string>
+    <string name="favorite_movies_year">Year:</string>
 
     <!--Add Movie-->
     <string name="add_movies_empty_view">Sorry. We didn\'t find any movies with this name</string>

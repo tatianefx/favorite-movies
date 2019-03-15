@@ -31,10 +31,10 @@ import br.com.tatianefx.movies.data.Movie
     /**
      * Select a movie by id.
      *
-     * @param id the movie id.
+     * @param imdbId the movie IMDB id.
      * @return the movie with idd.
      */
-    @Query("SELECT * FROM Movies WHERE id = :id") fun getMovieById(id: String): Movie?
+    @Query("SELECT * FROM Movies WHERE imdbId = :imdbId") fun getMovieByImdbId(imdbId: String): Movie?
 
     /**
      * Insert a movie in the database. If the movie already exists, replace it.
@@ -52,11 +52,11 @@ import br.com.tatianefx.movies.data.Movie
     @Update fun updateMovie(movie: Movie): Int
 
     /**
-     * Delete a movie by id.
+     * Delete a movie by IMDB id.
      *
      * @return the number of movies deleted. This should always be 1.
      */
-    @Query("DELETE FROM movies WHERE id = :id") fun deleteMobieById(id: String): Int
+    @Query("DELETE FROM movies WHERE imdbID = :imdbID") fun deleteMobieByImdbID(imdbID: String): Int
 
     /**
      * Delete all movies.

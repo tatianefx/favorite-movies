@@ -4,7 +4,12 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
+import br.com.tatianefx.movies.util.Event
 import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
 
@@ -12,7 +17,7 @@ import br.com.tatianefx.movies.util.replaceFragmentInActivity
  * Created by Tatiane Souza on 14/03/2019.
  */
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(), DetailsNavigator {
 
     private lateinit var viewModel: DetailsViewModel
 
@@ -25,12 +30,40 @@ class DetailsActivity : AppCompatActivity() {
         val imdbId = intent?.extras?.getString(EXTRA_IMDB_ID)
         setupViewFragment(imdbId)
 
-        viewModel = obtainViewModel()
+        viewModel = obtainViewModel().apply {
+            onFailureEvent.observe(this@DetailsActivity, Observer<Event<String>> { event ->
+                event.getContentIfNotHandled()?.let {
+                    this@DetailsActivity.onFailure(it)
+                }
+            })
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.menu_favorite, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        item?.isChecked?.let {
+            if (it) {
+                item.setIcon(R.drawable.ic_favorite_border_24)
+            } else {
+                item.setIcon(R.drawable.ic_favorite_24)
+            }
+            viewModel.updateFavorite(!it)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onFailure(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setupViewFragment(imdbId: String?) {

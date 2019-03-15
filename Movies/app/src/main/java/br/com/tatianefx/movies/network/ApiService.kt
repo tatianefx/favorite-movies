@@ -1,6 +1,6 @@
 package br.com.tatianefx.movies.network
 
-import br.com.tatianefx.movies.data.MovieDetail
+import br.com.tatianefx.movies.data.Movie
 import br.com.tatianefx.movies.data.Search
 import retrofit2.Call
 import retrofit2.http.GET
@@ -16,5 +16,5 @@ interface ApiService {
     fun searchMovieByTitle(@Query("s") title: String): Call<Search>
 
     @GET("/")
-    fun getMovieDetails(@Query("i") imdbId: String): Call<MovieDetail>
+    fun getMovieDetails(@Query("i") imdbId: String): Call<Movie>
 }

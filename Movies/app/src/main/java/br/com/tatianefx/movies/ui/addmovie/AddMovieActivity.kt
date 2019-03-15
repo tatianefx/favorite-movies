@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
@@ -36,6 +37,12 @@ class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, MovieItemNaviga
             openMovieEvent.observe(this@AddMovieActivity, Observer<Event<String>> { event ->
                 event.getContentIfNotHandled()?.let {
                     this@AddMovieActivity.openMovieDetails(it)
+                }
+            })
+
+            onFailureEvent.observe(this@AddMovieActivity, Observer<Event<String>> { event ->
+                event.getContentIfNotHandled()?.let {
+                    this@AddMovieActivity.onFailure(it)
                 }
             })
         }
@@ -73,6 +80,10 @@ class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, MovieItemNaviga
     }
 
     //endregion
+
+    override fun onFailure(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
 
     override fun openMovieDetails(imdbId: String) {
         startActivity(DetailsActivity.newIntent(this, imdbId))

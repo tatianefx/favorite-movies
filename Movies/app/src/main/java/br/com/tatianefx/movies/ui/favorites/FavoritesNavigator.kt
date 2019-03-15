@@ -7,4 +7,6 @@ package br.com.tatianefx.movies.ui.favorites
 internal interface FavoritesNavigator {
 
     fun addNewMovie()
+
+    fun onFailure(message: String)
 }
