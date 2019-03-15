@@ -7,7 +7,6 @@
     <item android:id="@+id/action_favorite"
           android:title=""
           android:icon="@drawable/bg_favorite_icon"
-          app:actionViewClass="androidx.appcompat.widget.SearchView"
           app:showAsAction="ifRoom"/>
 
 </menu>
