@@ -111,8 +111,8 @@ class MoviesRepository(
         cachedMovies.remove(id)
     }
 
-    override fun searchMovies(context: Context, title: String, callback: MoviesDataSource.LoadMoviesCallback) {
-        moviesRemoteDataSource.searchMovies(context, title, object : MoviesDataSource.LoadMoviesCallback {
+    override fun searchMovies(context: Context, title: String, page: Int, callback: MoviesDataSource.LoadMoviesCallback) {
+        moviesRemoteDataSource.searchMovies(context, title, page, object : MoviesDataSource.LoadMoviesCallback {
             override fun onMoviesLoaded(movies: List<Movie>) {
                 callback.onMoviesLoaded(movies)
             }

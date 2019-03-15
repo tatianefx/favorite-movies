@@ -66,7 +66,7 @@ class MoviesLocalDataSource private constructor(
         appExecutors.diskIO.execute { moviesDao.deleteMobieByImdbID(imdbId) }
     }
 
-    override fun searchMovies(context: Context, title: String, callback: MoviesDataSource.LoadMoviesCallback) {
+    override fun searchMovies(context: Context, title: String, page: Int, callback: MoviesDataSource.LoadMoviesCallback) {
         // do nothing
     }
 

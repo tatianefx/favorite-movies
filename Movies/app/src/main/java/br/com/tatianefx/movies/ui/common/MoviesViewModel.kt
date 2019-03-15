@@ -12,7 +12,7 @@ import br.com.tatianefx.movies.util.Event
 
 open class MoviesViewModel: ViewModel() {
 
-    var items: List<Movie> = emptyList()
+    var items: ArrayList<Movie> = arrayListOf()
 
     private val _openMovieEvent = MutableLiveData<Event<String>>()
     val openMovieEvent: LiveData<Event<String>>

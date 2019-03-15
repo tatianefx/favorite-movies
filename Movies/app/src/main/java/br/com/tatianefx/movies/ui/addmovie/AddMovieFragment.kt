@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.tatianefx.movies.databinding.AddMovieFragmentBinding
+import kotlinx.android.synthetic.main.add_movie_fragment.*
 
 /**
  * Created by Tatiane Souza on 13/03/2019.
@@ -36,9 +38,24 @@ class AddMovieFragment : Fragment() {
         super.onActivityCreated(savedInstanceState)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
         setupRecyclerAdapter()
+        setupNestedScroll()
     }
 
     private fun setupRecyclerAdapter() {
         viewDataBinding.addMoviesRecyclerview.layoutManager = LinearLayoutManager(context)
+    }
+
+    private fun setupNestedScroll() {
+        add_movies_nested_scroll.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, scrollY, _, _ ->
+            onScrollBottom(v, scrollY)
+        })
+    }
+
+    private fun onScrollBottom(v: NestedScrollView, scrollY: Int) {
+        if (scrollY == v.getChildAt(0).measuredHeight - v.measuredHeight) {
+            context?.let {
+                viewDataBinding.viewModel?.loadNextPage(it)
+            }
+        }
     }
 }

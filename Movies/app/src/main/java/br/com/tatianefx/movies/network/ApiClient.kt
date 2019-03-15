@@ -18,8 +18,8 @@ class ApiClient {
             NetworkClient.getApi()
         }
 
-        fun searchMovieByTitle(title: String, listener: OnResponseListener<List<Movie>>) {
-            service.searchMovieByTitle(title).enqueue(object : Callback<Search> {
+        fun searchMovieByTitle(title: String, page: Int, listener: OnResponseListener<List<Movie>>) {
+            service.searchMovieByTitle(title, page).enqueue(object : Callback<Search> {
 
                 override fun onResponse(call: Call<Search>, response: Response<Search>) {
                     response.body()?.let {

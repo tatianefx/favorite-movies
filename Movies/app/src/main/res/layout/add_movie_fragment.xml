@@ -17,6 +17,7 @@
             tools:context=".ui.addmovie.AddMovieActivity">
 
         <androidx.core.widget.NestedScrollView
+                android:id="@+id/add_movies_nested_scroll"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="none">

@@ -30,7 +30,7 @@ interface MoviesDataSource {
 
     fun getMovies(callback: LoadMoviesCallback)
 
-    fun searchMovies(context: Context, title: String, callback: LoadMoviesCallback)
+    fun searchMovies(context: Context, title: String, page: Int, callback: LoadMoviesCallback)
 
     fun getMovie(context: Context, imdbId: String, callback: GetMovieCallback)
 

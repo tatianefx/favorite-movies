@@ -19,14 +19,14 @@ class MoviesRemoteDataSource: MoviesDataSource {
         // do nothing
     }
 
-    override fun searchMovies(context: Context, title: String, callback: MoviesDataSource.LoadMoviesCallback) {
+    override fun searchMovies(context: Context, title: String, page: Int, callback: MoviesDataSource.LoadMoviesCallback) {
         // verifies if internet is available
         if (!NetworkUtil.isNetworkAvailable(context)) {
             callback.onFaliure("No internet")
             return
         }
 
-        ApiClient.searchMovieByTitle(title, object: OnResponseListener<List<Movie>> {
+        ApiClient.searchMovieByTitle(title, page, object: OnResponseListener<List<Movie>> {
             override fun onSuccess(response: List<Movie>) {
                 callback.onMoviesLoaded(response)
             }

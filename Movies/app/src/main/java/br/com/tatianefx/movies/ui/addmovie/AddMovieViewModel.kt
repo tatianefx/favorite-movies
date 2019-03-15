@@ -19,6 +19,9 @@ import br.com.tatianefx.movies.util.Event
 class AddMovieViewModel(private val moviesRepository: MoviesRepository) : MoviesViewModel(), MoviesDataSource.LoadMoviesCallback {
 
     //region Attributes
+    private val FIRST_PAGE = 1
+    private var currentPage: Int = FIRST_PAGE
+    private var currentTitle: String = ""
 
     private val _progressVisibility = MutableLiveData<Int>()
     val progressVisibility: LiveData<Int>
@@ -63,7 +66,14 @@ class AddMovieViewModel(private val moviesRepository: MoviesRepository) : Movies
 
     fun searchMovie(context: Context, title: String) {
         updateProgress(true)
-        moviesRepository.searchMovies(context, title, this)
+        currentTitle = title
+        moviesRepository.searchMovies(context, title, FIRST_PAGE,this)
+    }
+
+    fun loadNextPage(context: Context) {
+        updateProgress(true)
+        currentPage += 1
+        moviesRepository.searchMovies(context, currentTitle, currentPage,this)
     }
 
     fun getMovieAt(position: Int): Movie? {
@@ -98,7 +108,7 @@ class AddMovieViewModel(private val moviesRepository: MoviesRepository) : Movies
     //region Callback Methods
 
     override fun onMoviesLoaded(movies: List<Movie>) {
-        items = movies
+        items.addAll(movies)
         _adapter.value?.notifyDataSetChanged()
         updateVisibility()
         _searchMovieEvent.value = Event(Unit)

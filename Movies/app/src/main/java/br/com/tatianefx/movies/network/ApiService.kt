@@ -13,7 +13,8 @@ import retrofit2.http.Query
 interface ApiService {
 
     @GET("/")
-    fun searchMovieByTitle(@Query("s") title: String): Call<Search>
+    fun searchMovieByTitle(@Query("s") title: String,
+                           @Query("page") page: Int): Call<Search>
 
     @GET("/")
     fun getMovieDetails(@Query("i") imdbId: String): Call<Movie>
