@@ -1,5 +1,6 @@
 package br.com.tatianefx.movies.data.source
 
+import android.content.Context
 import br.com.tatianefx.movies.data.Movie
 
 
@@ -70,7 +71,7 @@ class MoviesRepository(
      * Note: [GetMovieCallback.onDataNotAvailable] is fired if both data sources fail to
      * get the data.
      */
-    override fun getMovie(imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
+    override fun getMovie(context: Context, imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
         val movieInCache = getMovieWithImdb(imdbId)
 
         // Respond immediately with cache if available
@@ -82,7 +83,7 @@ class MoviesRepository(
         // Load from server/persisted if needed.
 
         // Is the movie in the local data source? If not, query the network.
-        moviesLocalDataSource.getMovie(imdbId, object : MoviesDataSource.GetMovieCallback {
+        moviesLocalDataSource.getMovie(context, imdbId, object : MoviesDataSource.GetMovieCallback {
             override fun onMovieLoaded(movie: Movie) {
                 // Do in memory cache update to keep the app UI up to date
                 cacheAndPerform(movie) {
@@ -91,7 +92,7 @@ class MoviesRepository(
             }
 
             override fun onDataNotAvailable() {
-                requestByApi(imdbId, callback)
+                requestByApi(context, imdbId, callback)
             }
 
             override fun onFaliure(message: String) {
@@ -110,8 +111,8 @@ class MoviesRepository(
         cachedMovies.remove(id)
     }
 
-    override fun searchMovies(title: String, callback: MoviesDataSource.LoadMoviesCallback) {
-        moviesRemoteDataSource.searchMovies(title, object : MoviesDataSource.LoadMoviesCallback {
+    override fun searchMovies(context: Context, title: String, callback: MoviesDataSource.LoadMoviesCallback) {
+        moviesRemoteDataSource.searchMovies(context, title, object : MoviesDataSource.LoadMoviesCallback {
             override fun onMoviesLoaded(movies: List<Movie>) {
                 callback.onMoviesLoaded(movies)
             }
@@ -128,8 +129,8 @@ class MoviesRepository(
 
     //region Remote
 
-    private fun requestByApi(imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
-        moviesRemoteDataSource.getMovie(imdbId, object : MoviesDataSource.GetMovieCallback {
+    private fun requestByApi(context: Context, imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
+        moviesRemoteDataSource.getMovie(context, imdbId, object : MoviesDataSource.GetMovieCallback {
             override fun onMovieLoaded(movie: Movie) {
                 // Do in memory cache update to keep the app UI up to date
                 cacheAndPerform(movie) {

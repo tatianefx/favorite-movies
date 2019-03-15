@@ -6,7 +6,6 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
@@ -15,6 +14,8 @@ import br.com.tatianefx.movies.ui.details.DetailsActivity
 import br.com.tatianefx.movies.util.Event
 import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.add_movie_activity.*
 
 /**
  * Created by Tatiane Souza on 13/03/2019.
@@ -71,7 +72,7 @@ class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, MovieItemNaviga
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        query?.let { viewModel.searchMovie(it) }
+        query?.let { viewModel.searchMovie(this@AddMovieActivity, it) }
         return false
     }
 
@@ -82,7 +83,7 @@ class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, MovieItemNaviga
     //endregion
 
     override fun onFailure(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Snackbar.make(add_movie_activity, message, Snackbar.LENGTH_LONG).show()
     }
 
     override fun openMovieDetails(imdbId: String) {

@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
 import br.com.tatianefx.movies.ui.addmovie.AddMovieActivity
@@ -13,6 +12,8 @@ import br.com.tatianefx.movies.ui.details.DetailsActivity
 import br.com.tatianefx.movies.util.Event
 import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.favorites_activity.*
 
 /**
  * Created by Tatiane Souza on 12/03/2019.
@@ -56,7 +57,7 @@ class FavoritesActivity : AppCompatActivity(), FavoritesNavigator, MovieItemNavi
     }
 
     override fun onFailure(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Snackbar.make(favorites_activity, message, Snackbar.LENGTH_LONG).show()
     }
 
     private fun setupViewFragment() {

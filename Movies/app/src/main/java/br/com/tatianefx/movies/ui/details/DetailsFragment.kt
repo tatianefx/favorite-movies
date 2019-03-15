@@ -24,7 +24,9 @@ class DetailsFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        viewDataBinding.viewModel?.start(arguments?.getString(ARGUMENT_IMDB_ID))
+        context?.let {
+            viewDataBinding.viewModel?.start(it, arguments?.getString(ARGUMENT_IMDB_ID))
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

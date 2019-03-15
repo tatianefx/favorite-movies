@@ -6,12 +6,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
 import br.com.tatianefx.movies.util.Event
 import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
+import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.details_activity.*
 
 /**
  * Created by Tatiane Souza on 14/03/2019.
@@ -70,7 +71,7 @@ class DetailsActivity : AppCompatActivity(), DetailsNavigator {
     }
 
     override fun onFailure(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+        Snackbar.make(details_activity, message, Snackbar.LENGTH_LONG).show()
     }
 
     private fun updateFavoriteIcon(isFavorite: Boolean) {

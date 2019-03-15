@@ -1,5 +1,6 @@
 package br.com.tatianefx.movies.data.source
 
+import android.content.Context
 import br.com.tatianefx.movies.data.Movie
 
 
@@ -29,9 +30,9 @@ interface MoviesDataSource {
 
     fun getMovies(callback: LoadMoviesCallback)
 
-    fun searchMovies(title: String, callback: LoadMoviesCallback)
+    fun searchMovies(context: Context, title: String, callback: LoadMoviesCallback)
 
-    fun getMovie(imdbId: String, callback: GetMovieCallback)
+    fun getMovie(context: Context, imdbId: String, callback: GetMovieCallback)
 
     fun saveMovie(movie: Movie)
 

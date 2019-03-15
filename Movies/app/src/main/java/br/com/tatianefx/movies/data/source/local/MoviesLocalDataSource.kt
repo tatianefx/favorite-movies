@@ -1,5 +1,6 @@
 package br.com.tatianefx.movies.data.source.local
 
+import android.content.Context
 import androidx.annotation.VisibleForTesting
 import br.com.tatianefx.movies.data.Movie
 import br.com.tatianefx.movies.data.source.MoviesDataSource
@@ -40,7 +41,7 @@ class MoviesLocalDataSource private constructor(
      * Note: [GetMoviesCallback.onDataNotAvailable] is fired if the [Movie] isn't
      * found.
      */
-    override fun getMovie(imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
+    override fun getMovie(context: Context, imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
         appExecutors.diskIO.execute {
             val movie = moviesDao.getMovieByImdbId(imdbId)
             appExecutors.mainThread.execute {
@@ -65,7 +66,7 @@ class MoviesLocalDataSource private constructor(
         appExecutors.diskIO.execute { moviesDao.deleteMobieByImdbID(imdbId) }
     }
 
-    override fun searchMovies(title: String, callback: MoviesDataSource.LoadMoviesCallback) {
+    override fun searchMovies(context: Context, title: String, callback: MoviesDataSource.LoadMoviesCallback) {
         // do nothing
     }
 

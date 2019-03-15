@@ -13,6 +13,4 @@ interface OnResponseListener<T> {
     fun onError(body: ResponseBody, code: Int)
 
     fun onFailure(str: String)
-
-    fun noInternet()
 }

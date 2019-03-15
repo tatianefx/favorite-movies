@@ -1,5 +1,6 @@
 package br.com.tatianefx.movies.ui.addmovie
 
+import android.content.Context
 import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -60,9 +61,9 @@ class AddMovieViewModel(private val moviesRepository: MoviesRepository) : Movies
         updateProgress(false)
     }
 
-    fun searchMovie(title: String) {
+    fun searchMovie(context: Context, title: String) {
         updateProgress(true)
-        moviesRepository.searchMovies(title, this)
+        moviesRepository.searchMovies(context, title, this)
     }
 
     fun getMovieAt(position: Int): Movie? {
