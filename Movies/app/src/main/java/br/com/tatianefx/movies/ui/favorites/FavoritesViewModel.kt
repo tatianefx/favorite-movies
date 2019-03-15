@@ -72,6 +72,7 @@ class FavoritesViewModel(private val moviesRepository: MoviesRepository): Movies
     //region Override Methods
 
     override fun onMoviesLoaded(movies: List<Movie>) {
+        items.clear()
         items.addAll(movies)
         _adapter.value?.notifyDataSetChanged()
         _noFavoriteMoviesVisibility.value = View.GONE
