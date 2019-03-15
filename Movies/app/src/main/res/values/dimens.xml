@@ -5,8 +5,9 @@
     <dimen name="image_small_width">85dp</dimen>
     <dimen name="image_medium_width">100dp</dimen>
     <dimen name="progress_height">10dp</dimen>
-    <dimen name="progress_margin">-6dp</dimen>
+    <dimen name="progress_margin_top">-6dp</dimen>
     <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_medium">20dp</dimen>
 
     <!--Fonts-->
     <dimen name="font_normal">14sp</dimen>

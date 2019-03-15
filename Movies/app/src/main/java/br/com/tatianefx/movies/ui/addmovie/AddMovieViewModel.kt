@@ -7,12 +7,9 @@ import br.com.tatianefx.movies.R
 import br.com.tatianefx.movies.data.Movie
 import br.com.tatianefx.movies.data.source.MoviesDataSource
 import br.com.tatianefx.movies.data.source.MoviesRepository
-import br.com.tatianefx.movies.network.ApiClient
-import br.com.tatianefx.movies.network.OnResponseListener
 import br.com.tatianefx.movies.ui.common.MoviesAdapter
 import br.com.tatianefx.movies.ui.common.MoviesViewModel
 import br.com.tatianefx.movies.util.Event
-import okhttp3.ResponseBody
 
 /**
  * Created by Tatiane Souza on 13/03/2019.
@@ -60,11 +57,11 @@ class AddMovieViewModel(private val moviesRepository: MoviesRepository) : Movies
     //region Public Methods
 
     fun start() {
-        //TODO
+        updateProgress(false)
     }
 
     fun searchMovie(title: String) {
-        _progressVisibility.value = View.VISIBLE
+        updateProgress(true)
         moviesRepository.searchMovies(title, this)
     }
 
@@ -87,6 +84,14 @@ class AddMovieViewModel(private val moviesRepository: MoviesRepository) : Movies
         }
     }
 
+    private fun updateProgress(isLoading: Boolean) {
+        if (isLoading) {
+            _progressVisibility.value = View.VISIBLE
+        } else {
+            _progressVisibility.value = View.GONE
+        }
+    }
+
     //endregion
 
     //region Callback Methods
@@ -94,18 +99,18 @@ class AddMovieViewModel(private val moviesRepository: MoviesRepository) : Movies
     override fun onMoviesLoaded(movies: List<Movie>) {
         items = movies
         _adapter.value?.notifyDataSetChanged()
-        _progressVisibility.value = View.GONE
         updateVisibility()
         _searchMovieEvent.value = Event(Unit)
+        updateProgress(false)
     }
 
     override fun onDataNotAvailable() {
-        _progressVisibility.value = View.GONE
+        updateProgress(false)
         _onFailureEvent.value = Event("Data not available")
     }
 
     override fun onFaliure(message: String) {
-        _progressVisibility.value = View.GONE
+        updateProgress(false)
         _onFailureEvent.value = Event(message)
     }
 

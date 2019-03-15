@@ -14,22 +14,29 @@
             android:id="@+id/addmovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="@dimen/margin_small"
             tools:context=".ui.addmovie.AddMovieActivity">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/add_movies_recyclerview"
+        <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adapter="@{viewModel.adapter}"
-                android:visibility="@{viewModel.recyclerViewVisibility, default = gone}"/>
+                android:scrollbars="none">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/add_movies_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:adapter="@{viewModel.adapter}"
+                    android:visibility="@{viewModel.recyclerViewVisibility, default = gone}"/>
+
+        </androidx.core.widget.NestedScrollView>
 
         <RelativeLayout
                 android:id="@+id/add_movies_empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:padding="@dimen/margin_small">
+                android:padding="@dimen/margin_medium">
 
             <TextView
                     android:layout_width="wrap_content"
@@ -47,6 +54,18 @@
                     android:visibility="@{viewModel.noMoviesVisibility, default = gone}"/>
 
         </RelativeLayout>
+
+        <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="@{viewModel.progressVisibility, default = gone}"
+                android:background="@android:color/transparent"
+                style="?android:attr/progressBarStyleHorizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

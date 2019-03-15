@@ -21,204 +21,231 @@
                 android:layout_height="0dp"
                 android:scrollbars="none" app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintEnd_toEndOf="parent" android:id="@+id/scrollView2">
 
-            <LinearLayout
-                    android:orientation="vertical"
+            <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
-
-                <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/image_large"
-                        tools:src="@tools:sample/avatars"
-                        app:imageUrl="@{viewModel.detail.poster}"
-                        android:id="@+id/poster_image_view"
-                        android:layout_weight="1"/>
+                    android:gravity="center">
 
                 <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_margin="@dimen/margin_small"
-                        android:layout_weight="0.7">
+                        android:layout_height="wrap_content"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+
+                    <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/image_large"
+                            tools:src="@tools:sample/avatars"
+                            app:imageUrl="@{viewModel.detail.poster}"
+                            android:id="@+id/poster_image_view"
+                            android:layout_weight="1"/>
 
                     <LinearLayout
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
+                            android:layout_height="match_parent"
+                            android:layout_margin="@dimen/margin_small"
+                            android:layout_weight="0.7">
 
-                        <TextView
-                                android:layout_width="wrap_content"
+                        <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:layout_marginEnd="@dimen/margin_small"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@string/details_title"/>
+                                android:orientation="horizontal">
 
-                        <TextView
-                                android:layout_width="wrap_content"
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:layout_marginEnd="@dimen/margin_small"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@string/details_title"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@{viewModel.detail.title}"
+                                    android:id="@+id/details_title_textview"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@{viewModel.detail.title}"
-                                android:id="@+id/details_title_textview"/>
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:layout_marginEnd="@dimen/margin_small"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@string/details_year"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@{viewModel.detail.year}"
+                                    android:id="@+id/details_year_textview"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:layout_marginEnd="@dimen/margin_small"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@string/details_runtime"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@{viewModel.detail.runtime}"
+                                    android:id="@+id/details_runtime_textview"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:layout_marginEnd="@dimen/margin_small"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@string/details_genre"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@{viewModel.detail.genre}"
+                                    android:id="@+id/details_genre_textview"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:layout_marginEnd="@dimen/margin_small"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@string/details_director"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@{viewModel.detail.director}"
+                                    android:id="@+id/details_director_textview"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:layout_marginEnd="@dimen/margin_small"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@string/details_writer"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@{viewModel.detail.writer}"
+                                    android:id="@+id/details_writer_textview"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:layout_marginEnd="@dimen/margin_small"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@string/details_actors"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@{viewModel.detail.actors}"
+                                    android:id="@+id/details_actors_textview"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textStyle="bold"
+                                    android:layout_marginEnd="@dimen/margin_small"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@string/details_plot"/>
+
+                            <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:textColor="@color/secondaryTextColor"
+                                    android:text="@{viewModel.detail.plot}"
+                                    android:id="@+id/details_plot_textview"/>
+                        </LinearLayout>
+
                     </LinearLayout>
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:layout_marginEnd="@dimen/margin_small"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@string/details_year"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@{viewModel.detail.year}"
-                                android:id="@+id/details_year_textview"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:layout_marginEnd="@dimen/margin_small"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@string/details_runtime"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@{viewModel.detail.runtime}"
-                                android:id="@+id/details_runtime_textview"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:layout_marginEnd="@dimen/margin_small"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@string/details_genre"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@{viewModel.detail.genre}"
-                                android:id="@+id/details_genre_textview"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:layout_marginEnd="@dimen/margin_small"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@string/details_director"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@{viewModel.detail.director}"
-                                android:id="@+id/details_director_textview"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:layout_marginEnd="@dimen/margin_small"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@string/details_writer"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@{viewModel.detail.writer}"
-                                android:id="@+id/details_writer_textview"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:layout_marginEnd="@dimen/margin_small"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@string/details_actors"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@{viewModel.detail.actors}"
-                                android:id="@+id/details_actors_textview"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textStyle="bold"
-                                android:layout_marginEnd="@dimen/margin_small"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@string/details_plot"/>
-
-                        <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/secondaryTextColor"
-                                android:text="@{viewModel.detail.plot}"
-                                android:id="@+id/details_plot_textview"/>
-                    </LinearLayout>
-
                 </LinearLayout>
-            </LinearLayout>
+
+                <!--<ProgressBar-->
+                <!--android:id="@+id/progress_bar"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:indeterminate="true"-->
+                <!--android:visibility="@{viewModel.progressVisibility, default = visible}"-->
+                <!--android:background="@android:color/transparent"/>-->
+
+            </RelativeLayout>
 
         </ScrollView>
+
+        <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminate="true"
+                android:visibility="@{viewModel.progressVisibility, default = gone}"
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toTopOf="@+id/scrollView2"
+                app:layout_constraintBottom_toBottomOf="@+id/scrollView2"
+                app:layout_constraintEnd_toEndOf="@+id/scrollView2"
+                app:layout_constraintStart_toStartOf="@+id/scrollView2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

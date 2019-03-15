@@ -2,7 +2,7 @@
     <string name="app_name">Movies</string>
 
     <!--Favorite Movies-->
-    <string name="favorite_movies_empty_view">You don\'t have favorite movies</string>
+    <string name="favorite_movies_empty_view">You don\'t have favorite movies. Click on the plus icon to search by movies</string>
     <string name="favorite_movies_title">Title:</string>
     <string name="favorite_movies_year">Year:</string>
 

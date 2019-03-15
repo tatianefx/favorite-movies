@@ -16,23 +16,34 @@
             android:layout_height="match_parent"
             tools:context=".ui.favorites.FavoritesFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/favorites_recyclerview"
+        <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:adapter="@{viewModel.adapter}" />
+                android:scrollbars="none">
+
+            <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/favorites_recyclerview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:adapter="@{viewModel.adapter}" />
+
+        </androidx.core.widget.NestedScrollView>
+
 
         <LinearLayout
                 android:id="@+id/favorites_empty_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:padding="@dimen/margin_medium"
                 android:background="@android:color/white"
                 android:visibility="@{viewModel.noFavoriteMoviesVisibility}">
             <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/font_medium"
+                    android:textAlignment="center"
                     android:text="@string/favorite_movies_empty_view"/>
         </LinearLayout>
 
