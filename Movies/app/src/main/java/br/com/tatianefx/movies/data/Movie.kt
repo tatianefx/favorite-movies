@@ -15,6 +15,9 @@ import java.util.*
 @Entity(tableName = "movies")
 data class Movie @JvmOverloads constructor(
 
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite: Boolean = false,
+
     @SerializedName("Title")
     @ColumnInfo(name = "title")
     var title: String = "",

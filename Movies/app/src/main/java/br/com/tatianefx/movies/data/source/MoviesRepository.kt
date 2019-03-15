@@ -55,6 +55,7 @@ class MoviesRepository(
     }
 
     override fun saveMovie(movie: Movie) {
+        movie.isFavorite = true
         // Do in memory cache update to keep the app UI up to date
         cacheAndPerform(movie) {
             moviesLocalDataSource.saveMovie(it)
@@ -162,6 +163,7 @@ class MoviesRepository(
 
     private inline fun cacheAndPerform(movie: Movie, perform: (Movie) -> Unit) {
         val cachedMovie = Movie(
+            movie.isFavorite,
             movie.title,
             movie.year,
             movie.plot,

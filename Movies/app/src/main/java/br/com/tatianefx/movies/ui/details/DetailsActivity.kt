@@ -20,6 +20,7 @@ import br.com.tatianefx.movies.util.replaceFragmentInActivity
 class DetailsActivity : AppCompatActivity(), DetailsNavigator {
 
     private lateinit var viewModel: DetailsViewModel
+    private var menuItem: MenuItem? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,23 +48,37 @@ class DetailsActivity : AppCompatActivity(), DetailsNavigator {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.menu_favorite, menu)
+
+        menuItem = menu.findItem(R.id.action_favorite)
+        viewModel.isFavorite.value?.let {
+            updateFavoriteIcon(it)
+        }
         return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        item?.isChecked?.let {
-            if (it) {
-                item.setIcon(R.drawable.ic_favorite_border_24)
-            } else {
-                item.setIcon(R.drawable.ic_favorite_24)
-            }
-            viewModel.updateFavorite(!it)
+        when(item?.itemId) {
+             R.id.action_favorite -> {
+                 viewModel.isFavorite.value?.let {
+                     updateFavoriteIcon(!it)
+                 }
+                 viewModel.updateFavorite()
+             }
+            else -> {}
         }
         return super.onOptionsItemSelected(item)
     }
 
     override fun onFailure(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun updateFavoriteIcon(isFavorite: Boolean) {
+        if (isFavorite) {
+            menuItem?.setIcon(R.drawable.ic_favorite_24)
+        } else {
+            menuItem?.setIcon(R.drawable.ic_favorite_border_24)
+        }
     }
 
     private fun setupViewFragment(imdbId: String?) {

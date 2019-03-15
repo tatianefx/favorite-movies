@@ -22,6 +22,10 @@ class DetailsViewModel(private val moviesRepository: MoviesRepository) : ViewMod
     val detail: LiveData<Movie>
         get() = _detail
 
+    private val _isFavorite = MutableLiveData<Boolean>()
+    val isFavorite: LiveData<Boolean>
+        get() = _isFavorite
+
     private val _onFailureEvent = MutableLiveData<Event<String>>()
     val onFailureEvent: LiveData<Event<String>>
         get() = _onFailureEvent
@@ -37,11 +41,13 @@ class DetailsViewModel(private val moviesRepository: MoviesRepository) : ViewMod
         }
     }
 
-    fun updateFavorite(isFavorite: Boolean) {
-        if (isFavorite) {
-            saveMovie()
-        } else {
-            deleteMovie()
+    fun updateFavorite() {
+        _detail.value?.isFavorite?.let {
+            if (!it) {
+                saveMovie()
+            } else {
+                deleteMovie()
+            }
         }
     }
 
@@ -58,6 +64,7 @@ class DetailsViewModel(private val moviesRepository: MoviesRepository) : ViewMod
     private fun deleteMovie() {
         detail.value?.let {
             moviesRepository.deleteMovie(it.imdbId)
+            _isFavorite.value = false
         }
     }
 
@@ -67,6 +74,7 @@ class DetailsViewModel(private val moviesRepository: MoviesRepository) : ViewMod
 
     override fun onMovieLoaded(movie: Movie) {
         _detail.value = movie
+        _isFavorite.value = movie.isFavorite
     }
 
     override fun onDataNotAvailable() {
