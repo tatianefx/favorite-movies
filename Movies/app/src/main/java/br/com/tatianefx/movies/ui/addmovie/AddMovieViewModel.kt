@@ -66,6 +66,7 @@ class AddMovieViewModel(private val moviesRepository: MoviesRepository) : Movies
 
     fun searchMovie(context: Context, title: String) {
         updateProgress(true)
+        items.clear()
         currentTitle = title
         moviesRepository.searchMovies(context, title, FIRST_PAGE,this)
     }

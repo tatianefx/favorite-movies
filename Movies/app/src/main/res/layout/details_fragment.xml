@@ -45,7 +45,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/image_large"
                             tools:src="@tools:sample/avatars"
-                            app:imageUrl="@{viewModel.detail.poster}"
+                            android:background="@color/primaryColor"
+                            app:imageUrlLarge="@{viewModel.detail.poster}"
                             android:id="@+id/poster_image_view"
                             android:layout_weight="1"/>
 
