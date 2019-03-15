@@ -78,7 +78,7 @@ class FavoritesViewModel(private val moviesRepository: MoviesRepository): Movies
     }
 
     override fun onDataNotAvailable() {
-        _onFailureEvent.value = Event("Data not available")
+
     }
 
     override fun onFaliure(message: String) {

@@ -1,5 +1,7 @@
 package br.com.tatianefx.movies.ui.favorites
 
+import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -11,7 +13,6 @@ import br.com.tatianefx.movies.ui.details.DetailsActivity
 import br.com.tatianefx.movies.util.Event
 import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
-import kotlinx.android.synthetic.main.favorites_activity.*
 
 /**
  * Created by Tatiane Souza on 12/03/2019.
@@ -24,8 +25,6 @@ class FavoritesActivity : AppCompatActivity(), FavoritesNavigator, MovieItemNavi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.favorites_activity)
-
-        setSupportActionBar(toolbar)
 
         setupViewFragment()
 
@@ -70,4 +69,11 @@ class FavoritesActivity : AppCompatActivity(), FavoritesNavigator, MovieItemNavi
     }
 
     internal fun obtainViewModel(): FavoritesViewModel = obtainViewModel(FavoritesViewModel::class.java)
+
+    companion object {
+
+        fun newIntent(context: Context): Intent {
+            return Intent(context, FavoritesActivity::class.java)
+        }
+    }
 }
