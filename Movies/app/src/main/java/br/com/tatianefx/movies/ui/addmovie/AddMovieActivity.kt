@@ -33,7 +33,7 @@ class AddMovieActivity : AppCompatActivity(), AddMovieNavigator, MovieItemNaviga
         setupViewFragment()
 
         viewModel = obtainViewModel().apply {
-            // Subscribe to "search movie" event
+            // Subscribe to "open movie" event
             openMovieEvent.observe(this@AddMovieActivity, Observer<Event<String>> { event ->
                 event.getContentIfNotHandled()?.let {
                     this@AddMovieActivity.openMovieDetails(it)

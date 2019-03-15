@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import br.com.tatianefx.movies.R
 import br.com.tatianefx.movies.ui.addmovie.AddMovieActivity
+import br.com.tatianefx.movies.ui.common.MovieItemNavigator
+import br.com.tatianefx.movies.ui.details.DetailsActivity
 import br.com.tatianefx.movies.util.Event
 import br.com.tatianefx.movies.util.obtainViewModel
 import br.com.tatianefx.movies.util.replaceFragmentInActivity
@@ -15,7 +17,7 @@ import kotlinx.android.synthetic.main.favorites_activity.*
  * Created by Tatiane Souza on 12/03/2019.
  */
 
-class FavoritesActivity : AppCompatActivity(), FavoritesNavigator {
+class FavoritesActivity : AppCompatActivity(), FavoritesNavigator, MovieItemNavigator {
 
     private lateinit var viewModel: FavoritesViewModel
 
@@ -28,6 +30,13 @@ class FavoritesActivity : AppCompatActivity(), FavoritesNavigator {
         setupViewFragment()
 
         viewModel = obtainViewModel().apply {
+            // Subscribe to "open movie" event
+            openMovieEvent.observe(this@FavoritesActivity, Observer<Event<String>> { event ->
+                event.getContentIfNotHandled()?.let {
+                    this@FavoritesActivity.openMovieDetails(it)
+                }
+            })
+
             // Subscribe to "add movie" event
             addNewMovieEvent.observe(this@FavoritesActivity, Observer<Event<Unit>> { event ->
                 event.getContentIfNotHandled()?.let {
@@ -41,6 +50,10 @@ class FavoritesActivity : AppCompatActivity(), FavoritesNavigator {
                 }
             })
         }
+    }
+
+    override fun openMovieDetails(imdbId: String) {
+        startActivity(DetailsActivity.newIntent(this, imdbId))
     }
 
     override fun onFailure(message: String) {
