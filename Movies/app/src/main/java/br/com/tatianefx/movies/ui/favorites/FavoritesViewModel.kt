@@ -82,7 +82,7 @@ class FavoritesViewModel(private val moviesRepository: MoviesRepository): Movies
         _noFavoriteMoviesVisibility.value = View.VISIBLE
     }
 
-    override fun onFaliure(message: String) {
+    override fun onFailure(message: String) {
         _onFailureEvent.value = Event(message)
     }
 

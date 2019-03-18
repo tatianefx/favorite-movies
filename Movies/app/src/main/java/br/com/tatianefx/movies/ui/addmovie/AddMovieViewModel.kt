@@ -121,7 +121,7 @@ class AddMovieViewModel(private val moviesRepository: MoviesRepository) : Movies
         _onFailureEvent.value = Event("Data not available")
     }
 
-    override fun onFaliure(message: String) {
+    override fun onFailure(message: String) {
         updateProgress(false)
         _onFailureEvent.value = Event(message)
     }

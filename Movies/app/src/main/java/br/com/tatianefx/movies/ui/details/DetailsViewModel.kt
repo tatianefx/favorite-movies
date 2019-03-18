@@ -96,7 +96,7 @@ class DetailsViewModel(private val moviesRepository: MoviesRepository) : ViewMod
         _viewVisibility.value = View.GONE
     }
 
-    override fun onFaliure(message: String) {
+    override fun onFailure(message: String) {
         _onFailureEvent.value = Event(message)
         _progressVisibility.value = View.GONE
         _viewVisibility.value = View.GONE

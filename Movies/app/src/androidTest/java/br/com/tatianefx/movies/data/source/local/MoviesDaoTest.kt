@@ -1,9 +1,9 @@
 package br.com.tatianefx.movies.data.source.local
 
 import androidx.room.Room
-import androidx.test.InstrumentationRegistry
+import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.runner.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
 import br.com.tatianefx.movies.data.Movie
 import org.hamcrest.CoreMatchers
 import org.hamcrest.MatcherAssert
@@ -25,7 +25,7 @@ import org.junit.runner.RunWith
         // using an in-memory database because the information stored here disappears when the
         // process is killed
         database = Room.inMemoryDatabaseBuilder(
-            InstrumentationRegistry.getContext(),
+            InstrumentationRegistry.getInstrumentation().context,
             MoviesDatabase::class.java).build()
     }
 
@@ -161,17 +161,17 @@ import org.junit.runner.RunWith
 
     companion object {
 
-        private val DEFAULT_IS_FAVORITE = false
-        private val DEFAULT_TITLE = "title"
-        private val DEFAULT_YEAR = "year"
-        private val DEFAULT_PLOT = "plot"
-        private val DEFAULT_POSTER = "poster"
-        private val DEFAULT_RUNTIME = "runtime"
-        private val DEFAULT_GENRE = "genre"
-        private val DEFAULT_DIRECTOR = "director"
-        private val DEFAULT_WRITER = "writer"
-        private val DEFAULT_ACTORS = "actors"
-        private val DEFAULT_IMDB_ID = "imdbID"
+        private const val DEFAULT_IS_FAVORITE = false
+        private const val DEFAULT_TITLE = "title"
+        private const val DEFAULT_YEAR = "year"
+        private const val DEFAULT_PLOT = "plot"
+        private const val DEFAULT_POSTER = "poster"
+        private const val DEFAULT_RUNTIME = "runtime"
+        private const val DEFAULT_GENRE = "genre"
+        private const val DEFAULT_DIRECTOR = "director"
+        private const val DEFAULT_WRITER = "writer"
+        private const val DEFAULT_ACTORS = "actors"
+        private const val DEFAULT_IMDB_ID = "imdbID"
 
         private val DEFAULT_MOVIE = Movie(
             DEFAULT_IS_FAVORITE,
@@ -187,7 +187,7 @@ import org.junit.runner.RunWith
             DEFAULT_IMDB_ID
             )
 
-        private val NEW_IS_FAVORITE = true
-        private val NEW_POSTER = "new poster"
+        private const val NEW_IS_FAVORITE = true
+        private const val NEW_POSTER = "new poster"
     }
 }
