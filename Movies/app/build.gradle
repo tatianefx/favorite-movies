@@ -37,6 +37,11 @@ ext {
     archLifecycleVersion = '2.0.0'
     retrofitVersion = '2.5.0'
     retrofitLogVersion = '3.10.0'
+
+    // tests
+    testCoreVersion = '1.1.0'
+    junitVersion = '1.1.0'
+    mockitoVersion = '2.25.1'
 }
 
 dependencies {
@@ -50,6 +55,12 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.2-alpha02'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0-alpha02'
+
+    // Android Tests
+    androidTestImplementation "androidx.test:core:$testCoreVersion"
+    androidTestImplementation "androidx.test.ext:junit:$junitVersion"
+    androidTestImplementation "org.mockito:mockito-android:$mockitoVersion"
+    androidTestImplementation "org.mockito:mockito-core:$mockitoVersion"
 
     // Architecture Components
     implementation "androidx.room:room-runtime:$roomVersion"

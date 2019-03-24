@@ -16,7 +16,7 @@ interface MoviesDataSource {
 
         fun onDataNotAvailable()
 
-        fun onFaliure(message: String)
+        fun onFailure(message: String)
     }
 
     interface GetMovieCallback {
@@ -25,7 +25,7 @@ interface MoviesDataSource {
 
         fun onDataNotAvailable()
 
-        fun onFaliure(message: String)
+        fun onFailure(message: String)
     }
 
     fun getMovies(callback: LoadMoviesCallback)

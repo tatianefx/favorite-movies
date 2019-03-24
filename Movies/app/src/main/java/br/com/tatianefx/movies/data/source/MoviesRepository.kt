@@ -49,8 +49,8 @@ class MoviesRepository(
                 callback.onDataNotAvailable()
             }
 
-            override fun onFaliure(message: String) {
-                callback.onFaliure(message)
+            override fun onFailure(message: String) {
+                callback.onFailure(message)
             }
         })
     }
@@ -95,8 +95,8 @@ class MoviesRepository(
                 requestByApi(context, imdbId, callback)
             }
 
-            override fun onFaliure(message: String) {
-                callback.onFaliure(message)
+            override fun onFailure(message: String) {
+                callback.onFailure(message)
             }
         })
     }
@@ -121,8 +121,8 @@ class MoviesRepository(
                 callback.onDataNotAvailable()
             }
 
-            override fun onFaliure(message: String) {
-                callback.onFaliure(message)
+            override fun onFailure(message: String) {
+                callback.onFailure(message)
             }
         })
     }
@@ -142,8 +142,8 @@ class MoviesRepository(
                 callback.onDataNotAvailable()
             }
 
-            override fun onFaliure(message: String) {
-                callback.onFaliure(message)
+            override fun onFailure(message: String) {
+                callback.onFailure(message)
             }
         })
     }

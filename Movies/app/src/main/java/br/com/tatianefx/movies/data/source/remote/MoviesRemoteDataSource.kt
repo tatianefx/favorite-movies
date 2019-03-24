@@ -22,7 +22,7 @@ class MoviesRemoteDataSource: MoviesDataSource {
     override fun searchMovies(context: Context, title: String, page: Int, callback: MoviesDataSource.LoadMoviesCallback) {
         // verifies if internet is available
         if (!NetworkUtil.isNetworkAvailable(context)) {
-            callback.onFaliure("No internet")
+            callback.onFailure("No internet")
             return
         }
 
@@ -32,11 +32,11 @@ class MoviesRemoteDataSource: MoviesDataSource {
             }
 
             override fun onError(body: ResponseBody, code: Int) {
-                callback.onFaliure("Error")
+                callback.onFailure("Error")
             }
 
             override fun onFailure(str: String) {
-                callback.onFaliure(str)
+                callback.onFailure(str)
             }
         })
     }
@@ -44,7 +44,7 @@ class MoviesRemoteDataSource: MoviesDataSource {
     override fun getMovie(context: Context, imdbId: String, callback: MoviesDataSource.GetMovieCallback) {
         // verifies if internet is available
         if (!NetworkUtil.isNetworkAvailable(context)) {
-            callback.onFaliure("No internet")
+            callback.onFailure("No internet")
             return
         }
 
@@ -54,11 +54,11 @@ class MoviesRemoteDataSource: MoviesDataSource {
             }
 
             override fun onError(body: ResponseBody, code: Int) {
-                callback.onFaliure("Error")
+                callback.onFailure("Error")
             }
 
             override fun onFailure(str: String) {
-                callback.onFaliure(str)
+                callback.onFailure(str)
             }
         })
     }
